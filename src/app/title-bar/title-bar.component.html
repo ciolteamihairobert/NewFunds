@@ -1,0 +1,27 @@
+<div class="title-bar">
+    <div class="title-bar-icon">
+        <i class="bi bi-wallet"></i>
+    </div>
+    <div class="title-bar-buttons">
+        <div class="dropdown">
+            <button class="dropdown-toggle-btn" (click)="toggleDropdown()">
+                <i class="bi bi-translate"></i>
+                <span>{{ selectedLanguage.toUpperCase() }}</span>
+            </button>
+            <ul class="dropdown-menu" [class.show]="isDropdownOpen">
+                <li (click)="selectLanguage('EN')">EN</li>
+                <li (click)="selectLanguage('RO')">RO</li>
+            </ul>
+        </div>
+        <button id="minimize-btn" class="title-bar-btn minimize-btn">
+            <i class="bi bi-dash-lg"></i>
+        </button>
+        <button id="maximize-btn" class="title-bar-btn maximize-btn">
+            <i class="bi bi-arrows-fullscreen"></i>
+        </button>
+        <button  id="close-btn" class="title-bar-btn close-btn">
+            <i class="bi bi-x-lg"></i>
+        </button>
+    </div>
+</div>
+  

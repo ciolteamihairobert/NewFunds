@@ -1,0 +1,68 @@
+.tab-name-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+.name {
+    font-weight: 400;
+    padding-left: 0.5rem;
+    font-size: 1.5rem;
+    pointer-events: none
+}
+
+.btn {
+    font-size: 1.3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn i {
+    transition: transform 0.3s ease;
+}
+
+.btn:hover i {
+    transform: translateY(0.2rem);
+}
+
+.btn-excel:hover {
+    background-color: #c8e6c9;
+    color: #00bf76;
+}
+
+.btn-pdf:hover {
+    background-color: #ff5252;
+    color: white;
+}
+
+.btn-play:hover {
+    background-color: #388e3c;
+    color: white;
+}
+
+.btn-trash:hover {
+    background-color: #bdbdbd;
+}
+  
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background-color: #546E7A !important;
+    text-align: center;
+    padding: 0.5rem; 
+}
+
+::ng-deep .mat-mdc-snack-bar-label .mdc-snackbar__label {
+    color: white  !important;
+}
+
+::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__label {
+    font-size: 1rem !important;
+}

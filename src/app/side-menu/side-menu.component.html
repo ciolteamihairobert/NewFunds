@@ -1,0 +1,78 @@
+<div class="sidenav-nav">
+    <li class="sidenav-nav-item">
+        <a class="sidenav-nav-link" 
+        routerLink="/home" 
+        routerLinkActive="active" 
+        matTooltip="Acasă" 
+        [matTooltipPosition]="position">
+          <i class="sidenav-link-icon bi bi-house"></i>
+        </a>
+      </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link"
+      routerLink="/credit" 
+      routerLinkActive="active" 
+      matTooltip="Credite" 
+      [matTooltipPosition]="position">
+        <i class="sidenav-link-icon bi bi-credit-card"></i>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
+      <a class="sidenav-nav-link"
+      routerLink="/deposit" 
+      routerLinkActive="active" 
+      matTooltip="Depozite" 
+      [matTooltipPosition]="position">
+        <i class="sidenav-link-icon bi bi-bank"></i>
+      </a>
+    </li>
+    <li class="sidenav-nav-item">
+        <a class="sidenav-nav-link" 
+        routerLink="/investment/simulator" 
+        routerLinkActive="active" 
+        matTooltip="Plan Investiții" 
+        [matTooltipPosition]="position">
+          <i class="sidenav-link-icon bi bi-graph-up"></i>
+        </a>
+    </li>
+    <li class="sidenav-nav-item" 
+      [ngClass]="{ 'disabled': !isInvestmentSimulatorCompleted }" 
+      matTooltip="Viitorul Copilului" 
+      [matTooltipPosition]="position">
+        <a class="sidenav-nav-link" 
+        routerLink="/investment/childFuture" 
+        routerLinkActive="active">
+          <i class="sidenav-link-icon bi bi-person-bounding-box"></i>
+        </a>
+    </li>
+    <li class="sidenav-nav-item" 
+      [ngClass]="{ 'disabled': !isInvestmentSimulatorCompleted }" 
+      matTooltip="Independența Financiară" 
+      [matTooltipPosition]="position">
+        <a class="sidenav-nav-link"  
+        routerLink="/investment/financialIndependence" 
+        routerLinkActive="active">
+          <i class="sidenav-link-icon bi bi-cash-coin"></i>
+        </a>
+    </li>
+    <li class="sidenav-nav-item" 
+      [ngClass]="{ 'disabled': !areAllSimulatorsCompleted }" 
+      matTooltip="Optimizator" 
+      [matTooltipPosition]="position">
+        <a class="sidenav-nav-link"  
+        routerLink="/optimizer" 
+        routerLinkActive="active">
+          <i class="sidenav-link-icon bi bi-sliders"></i>
+        </a>
+    </li>
+    <li class="sidenav-nav-item" 
+      [ngClass]="{ 'disabled': !isOptimizationCompleted }" 
+      matTooltip="Comparator" 
+      [matTooltipPosition]="position">
+        <a class="sidenav-nav-link"  
+        routerLink="/comparator" 
+        routerLinkActive="active">
+          <i class="sidenav-link-icon bi bi-graph-down"></i>
+        </a>
+    </li>
+</div>

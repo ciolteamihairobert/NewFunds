@@ -1,0 +1,33 @@
+<div class="tab-name-container">
+    <div class="name">
+        {{ title }}
+    </div>
+    <div class="buttons">
+        <button class="btn btn-excel"
+        matTooltip="Descarcă Excel"
+        [matTooltipPosition]="position"
+        (click)="exportToExcel()">
+            <i class="bi bi-filetype-xls"></i>
+        </button>
+        <button class="btn btn-pdf"
+        matTooltip="Descarcă PDF"
+        [matTooltipPosition]="position"
+        (click)="exportToPDF()">
+            <i class="bi bi-filetype-pdf"></i>
+        </button>
+        <button class="btn btn-play"
+        matTooltip="Pornește simularea"
+        [matTooltipPosition]="position"
+        (click)="runSimulation()">
+            <i class="bi bi-play"></i>
+        </button>
+        <button class="btn btn-trash"
+        matTooltip="Șterge simularea"
+        [matTooltipPosition]="position"
+        (click)="clearSimulation()">
+            <i class="bi bi-trash"></i>
+        </button>
+    </div>
+</div>
+  
+
