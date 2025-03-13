@@ -91,7 +91,7 @@ export class HeaderComponent {
     let totalCostToPay = 0;
     for (let month = 1; month <= repaymentPeriod; month++) {
       let row: CreditTableRow;
-  
+
       if (month < contractingMoment + 1) {
         row = {
           luna: month,
@@ -107,7 +107,6 @@ export class HeaderComponent {
         continue;
       } else {
         totalPeriod++;
-        this.creditDataService.updateCreditTotalPeriod(totalPeriod);
       }
       
       soldInitial = soldInitial - principal - rambursareAnticipata;
@@ -164,8 +163,6 @@ export class HeaderComponent {
          monthlyEarlyRepayment;
       }
 
-      totalCostToPay += rambursareAnticipata + totalPlata;
-
       row = {
         luna: month,
         soldInitial: parseFloat(soldInitial.toFixed(2)),
@@ -176,13 +173,16 @@ export class HeaderComponent {
         totalPlata: parseFloat(totalPlata.toFixed(2)),
         rambursareAnticipata: parseFloat(rambursareAnticipata.toFixed(2))
       };
-  
-      rows.push(row);
-  
-      if (soldInitial <= 0) {
+      
+      if (soldInitial === 0) {
+        totalPeriod--;
         break;
       }
+      totalCostToPay += rambursareAnticipata + totalPlata;
+      rows.push(row);
     }
+
+    this.creditDataService.updateCreditTotalPeriod(totalPeriod);
     this.creditDataService.updateCreditTotalCostToPay(Number(totalCostToPay.toFixed(2)));
     this.creditDataService.updateCreditRows(rows);
   }  

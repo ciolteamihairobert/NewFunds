@@ -14,7 +14,7 @@ import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ToasterService } from '../reusable-components/toaster.service';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 @Component({
   selector: 'app-credit',
@@ -64,7 +64,7 @@ export class CreditComponent implements OnInit {
 
   ngOnInit(): void {
     this.setFormValuesFromSessionStorage();
-    this.creditForm.valueChanges.subscribe((values) => {
+    this.creditForm.valueChanges.subscribe(() => {
         this.formDataService.setForm(this.creditForm);
     });
     this.creditDataService.currentCreditRows$.subscribe(rows => {
@@ -192,7 +192,6 @@ export class CreditComponent implements OnInit {
       ['Comision lunar (%)', formData['monthlyCommission']],
       ['Perioada de gratie (Luni)', formData['gracePeriod']]
     ];
-    console.log(this.repaymentMethods[formData['repaymentMethod']].viewValue)
 
     autoTable(doc, {
       body: inputData,
