@@ -7,13 +7,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { FormDataService } from '../reusable-components/form-data.service';
-import { CreditTableRow } from './creditTable';
-import { CreditDataService } from './credit-data.service';
+import { FormDataService } from '../reusable-components/services/form-data.service';
+import { CreditTableRow } from './models/creditTable';
+import { CreditDataService } from './services/credit-data.service';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { ToasterService } from '../reusable-components/toaster.service';
+import { ToasterService } from '../reusable-components/services/toaster.service';
 import { ToastrModule } from 'ngx-toastr';
 
 @Component({
