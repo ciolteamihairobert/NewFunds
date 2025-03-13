@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { CreditTableRow } from './creditTable';
+import { CreditTableRow } from '../models/creditTable';
 
 @Injectable({
   providedIn: 'root'

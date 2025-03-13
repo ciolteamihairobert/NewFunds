@@ -6,7 +6,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from '@angular/common/http';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { Paginator } from './reusable-components/paginator';
+import { Paginator } from './reusable-components/models/paginator';
 import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {

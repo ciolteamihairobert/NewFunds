@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { buttonActions } from './title-bar-buttons';
+import { buttonActions } from './models/title-bar-buttons';
 
 declare global {
   interface Window {
