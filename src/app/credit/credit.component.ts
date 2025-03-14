@@ -26,7 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatTableModule, MatPaginatorModule
   ],
   templateUrl: './credit.component.html',
-  styleUrl: './credit.component.css'
+  styleUrl: '../reusable-components/simulatorStyles.css'
 })
 
 export class CreditComponent implements OnInit {
