@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CreditDataService } from '../../credit/services/credit-data.service';
-import { CreditTableRow } from '../../credit/models/creditTable';
+import { CreditTableRow } from '../../simulator-components/credit/models/creditTable';
+import { CreditDataService } from '../../simulator-components/credit/services/credit-data.service';
+
 
 @Injectable({
   providedIn: 'root'

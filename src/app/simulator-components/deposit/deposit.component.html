@@ -1,0 +1,155 @@
+<div class="simulator-container">
+  <app-header
+    title="Simulator Depozit"
+    formName="Depozit"
+    [exportToExcel]="exportToExcel.bind(this)"
+    [exportToPDF]="exportToPDF.bind(this)"
+    [clearSimulation]="clearSimulation.bind(this)"
+  >
+  </app-header>
+  <div class="simulator-content">
+    <div class="input-section">
+      <form class="input-section-content" [formGroup]="depositForm">
+        <mat-form-field class="small-field">
+          <mat-label>Suma economisită (Ron)</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="initialAmount"
+            (keydown)="this.formDataService.allowOnlyNumbers($event)"
+          />
+        </mat-form-field>
+        <mat-form-field class="small-field">
+          <mat-label>Suma lunară de economisit</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="monthlySaving"
+            (keydown)="this.formDataService.allowOnlyNumbers($event)"
+          />
+        </mat-form-field>
+        <mat-form-field class="small-field">
+          <mat-label>Maturitate depozit</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="depositMaturity"
+            (keydown)="this.formDataService.allowOnlyNumbers($event)"
+          />
+        </mat-form-field>
+        <mat-form-field class="small-field">
+          <mat-label>Durata economisirii</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="savingDuration"
+            (keydown)="this.formDataService.allowOnlyNumbers($event)"
+          />
+        </mat-form-field>
+        <mat-form-field class="small-field">
+          <mat-label>Dobanda anuală</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="annualInterest"
+            (keydown)="this.formDataService.allowOnlyNumbers($event)"
+          />
+        </mat-form-field>
+        <mat-form-field class="small-field">
+          <mat-label>Impozit</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="tax"
+            (keydown)="this.formDataService.allowOnlyNumbers($event)"
+          />
+        </mat-form-field>
+        <mat-form-field class="small-field">
+          <mat-label>Comision administrare lunar</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="monthlyFee"
+            (keydown)="this.formDataService.allowOnlyNumbers($event)"
+          />
+        </mat-form-field>
+      </form>
+    </div>
+    <div
+      class="output-section"
+      [ngClass]="{ empty: dataSource.data.length === 0 }"
+    >
+      <div class="results-container" *ngIf="dataSource.data.length > 0">
+        <div class="results">
+          <div class="result-item">
+            <span>💰 Total economisit:</span>
+            <div>{{ totalSavings }} luni</div>
+          </div>
+          <div class="result-item">
+            <span>🏦 Soldul contului la final:</span>
+            <div>{{ finalBalance }} RON</div>
+          </div>
+          <div class="result-item">
+            <span>📈 Profitabilitate:</span>
+            <div>{{ profitability }} %</div>
+          </div>
+          <div class="result-item">
+            <span>💸 Total impozit platit:</span>
+            <div>{{ totalTaxPaid }} RON</div>
+          </div>
+        </div>
+      </div>
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        *ngIf="dataSource.data.length > 0"
+      >
+        <ng-container matColumnDef="luna">
+          <th mat-header-cell *matHeaderCellDef>Luna</th>
+          <td mat-cell *matCellDef="let element">{{ element.luna }}</td>
+        </ng-container>
+        <ng-container matColumnDef="soldInitial">
+          <th mat-header-cell *matHeaderCellDef>Sold Inițial</th>
+          <td mat-cell *matCellDef="let element">{{ element.soldInitial }}</td>
+        </ng-container>
+        <ng-container matColumnDef="sumaDepusa">
+          <th mat-header-cell *matHeaderCellDef>Suma depusă</th>
+          <td mat-cell *matCellDef="let element">{{ element.sumaDepusa }}</td>
+        </ng-container>
+        <ng-container matColumnDef="dobanda">
+          <th mat-header-cell *matHeaderCellDef>Dobândă</th>
+          <td mat-cell *matCellDef="let element">{{ element.dobanda }}</td>
+        </ng-container>
+        <ng-container matColumnDef="impozit">
+          <th mat-header-cell *matHeaderCellDef>Impozit</th>
+          <td mat-cell *matCellDef="let element">{{ element.impozit }}</td>
+        </ng-container>
+        <ng-container matColumnDef="comision">
+          <th mat-header-cell *matHeaderCellDef>Comision</th>
+          <td mat-cell *matCellDef="let element">{{ element.comision }}</td>
+        </ng-container>
+        <ng-container matColumnDef="soldFinal">
+          <th mat-header-cell *matHeaderCellDef>Sold final</th>
+          <td mat-cell *matCellDef="let element">{{ element.soldFinal }}</td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+      <mat-paginator
+        *ngIf="dataSource.data.length > 0"
+        [pageSize]="12"
+        [hidePageSize]="true"
+        [length]="dataSource.data.length"
+        showFirstLastButtons
+      >
+      </mat-paginator>
+      <div *ngIf="dataSource.data.length === 0" class="empty-state">
+        <p>📊 Nu sunt date disponibile momentan.</p>
+        <p>
+          💡 Vă rugăm să introduceți datele și să porniți simularea pentru a
+          vedea rezultatele.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
