@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { buttonActions } from './models/title-bar-buttons';
 
 declare global {
@@ -20,26 +20,12 @@ declare global {
 })
 export class TitleBarComponent implements OnInit {
   private buttons = buttonActions;
-  public isDropdownOpen: boolean = false; 
-  public selectedLanguage: string = 'EN';
 
-  constructor(private elementRef: ElementRef,
-    //private languageService: LanguageChangerService
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
-    //.languageService.setLanguage(this.selectedLanguage);
+
     this.initializeButtonActions();
-  }
-
-  public toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
-  }
-
-  public selectLanguage(language: string): void {
-    //this.languageService.updateLanguage(language);
-    this.selectedLanguage = language;
-    this.isDropdownOpen = false;
   }
 
   private initializeButtonActions(): void {
@@ -49,11 +35,4 @@ export class TitleBarComponent implements OnInit {
     });
   }
 
-  @HostListener('document:click', ['$event'])
-  public handleOutsideClick(event: MouseEvent): void {
-    const clickedInside = this.elementRef.nativeElement.contains(event.target);
-    if (!clickedInside) {
-      this.isDropdownOpen = false;
-    }
-  }
 }
