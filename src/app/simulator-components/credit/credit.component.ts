@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HeaderComponent } from "../reusable-components/header/header.component";
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,14 +6,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { FormDataService } from '../reusable-components/services/form-data.service';
 import { CreditTableRow } from './models/creditTable';
 import { CreditDataService } from './services/credit-data.service';
+import { ToastrModule } from 'ngx-toastr';
+import { HeaderComponent } from '../../reusable-components/header/header.component';
+import { FormDataService } from '../../reusable-components/services/form-data.service';
+import { ToasterService } from '../../reusable-components/services/toaster.service';
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { ToasterService } from '../reusable-components/services/toaster.service';
-import { ToastrModule } from 'ngx-toastr';
 
 @Component({
   selector: 'app-credit',
@@ -26,7 +26,7 @@ import { ToastrModule } from 'ngx-toastr';
     MatTableModule, MatPaginatorModule
   ],
   templateUrl: './credit.component.html',
-  styleUrl: '../reusable-components/simulatorStyles.css'
+  styleUrl: '../simulatorStyles.css'
 })
 
 export class CreditComponent implements OnInit {
@@ -45,7 +45,7 @@ export class CreditComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private formDataService: FormDataService,
+    public formDataService: FormDataService,
     private creditDataService: CreditDataService,
     private toasterService: ToasterService) {
       this.creditForm = this.fb.group({
@@ -63,7 +63,7 @@ export class CreditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setFormValuesFromSessionStorage();
+    this.formDataService.setFormValuesFromSessionStorage('Credit',this.creditForm);
     this.creditForm.valueChanges.subscribe(() => {
         this.formDataService.setForm(this.creditForm);
     });
@@ -81,25 +81,8 @@ export class CreditComponent implements OnInit {
     });
   }
 
-  public allowOnlyNumbers(event: KeyboardEvent): void {
-    const allowedKeys = ['Backspace', 'Tab', 'ArrowLeft', 'ArrowRight', 'Delete'];
-    if (allowedKeys.includes(event.key)) {
-        return;
-    }
-
-    const inputElement = event.target as HTMLInputElement;
-    const currentValue = inputElement.value;
-
-    if (/^\d$/.test(event.key)) {
-        return;
-    }
-    if (event.key === '.' && currentValue.length > 0 && !currentValue.includes('.')) {
-        return;
-    }
-    event.preventDefault();
-  }
-
   public exportToExcel(): void {
+    console.log(this.creditForm);
     if (this.dataSource.data.length === 0) {
       this.toasterService.showInfoOnExport();
       return;
@@ -280,27 +263,5 @@ export class CreditComponent implements OnInit {
   
     return text.replace(/[șțăîâȘȚĂÎÂ]/g, match => charMap[match]);
   }
-
-  private setFormValuesFromSessionStorage(): void {
-    const sessionValues = this.getSessionValues();
-  
-    if (sessionValues) {
-      this.creditForm.setValue(sessionValues);
-    }
-  }
-  
-  private getSessionValues(): any {
-    return {
-      loanAmount: sessionStorage.getItem('loanAmount'),
-      contractingMoment: sessionStorage.getItem('contractingMoment'),
-      repaymentPeriod: sessionStorage.getItem('repaymentPeriod'),
-      repaymentMethod: sessionStorage.getItem('repaymentMethod'),
-      monthlyEarlyRepayment: sessionStorage.getItem('monthlyEarlyRepayment'),
-      currentInterestRate: sessionStorage.getItem('currentInterestRate'),
-      subsequentInterestRate: sessionStorage.getItem('subsequentInterestRate'),
-      interestRateReviewPeriod: sessionStorage.getItem('interestRateReviewPeriod'),
-      monthlyCommission: sessionStorage.getItem('monthlyCommission'),
-      gracePeriod: sessionStorage.getItem('gracePeriod')
-    };
-  }
 }
+ 
