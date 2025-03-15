@@ -14,6 +14,7 @@ import { ToasterService } from '../../reusable-components/services/toaster.servi
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { DepositDataService } from './services/deposit-data.service';
 
 @Component({
   selector: 'app-deposit',
@@ -38,6 +39,7 @@ export class DepositComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     public formDataService: FormDataService,
+    private depositDataService: DepositDataService,
     private toasterService: ToasterService) {
       this.depositForm = this.fb.group({
         initialAmount: ['', Validators.required],
@@ -54,7 +56,26 @@ export class DepositComponent implements OnInit {
     this.formDataService.setFormValuesFromSessionStorage('Deposit',this.depositForm);
     this.depositForm.valueChanges.subscribe(() => {
       this.formDataService.setForm(this.depositForm);
-  });
+    });
+    this.depositDataService.currentDepositRows$.subscribe(rows => {
+      this.dataSource.data = rows;
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+      }); 
+    });
+    this.depositDataService.depositTotalSavings$.subscribe(totalSavings => {
+      this.totalSavings = totalSavings;
+    });
+    this.depositDataService.depositFinalBalance$.subscribe(finalBalance => {
+      this.finalBalance = finalBalance;
+    });
+    this.depositDataService.depositProfitability$ .subscribe(profitability => {
+      this.profitability = profitability;
+    });
+    this.depositDataService.depositTotalTaxPaid$.subscribe(totalTaxPaid => {
+      this.totalTaxPaid = totalTaxPaid;
+    });
+
   }
 
   public exportToExcel(): void {

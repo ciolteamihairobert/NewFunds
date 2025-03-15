@@ -33,6 +33,7 @@ export class HeaderComponent {
   }
 
   public runSimulation() {
+    console.log('aic')
     if(this.inputForm) {
       this.inputForm.markAllAsTouched();
       if (!this.inputForm.valid) {
@@ -43,15 +44,27 @@ export class HeaderComponent {
       for(let value in this.inputForm.value){
         sessionStorage.setItem(value, this.inputForm!.value[value]);
       }
+      console.log('aic1')
       if(this.formName === "Credit"){
         this.calculationService.calculateCreditData();
       }
+      if(this.formName === "Deposit"){
+        console.log('aic3')
+        this.calculationService.calculateDepositData();
+      }
     } 
     else {
-      if(sessionStorage.getItem('loanAmount') !== null){
+      if(sessionStorage.getItem('loanAmount') !== null && this.formName === "Credit"){
+        console.log('aic5')
         this.calculationService.calculateCreditData();
         return;
       }
+      if(sessionStorage.getItem('initialAmount') !== null && this.formName === "Deposit"){
+        console.log('aic4')
+        this.calculationService.calculateDepositData();
+        return;
+      }
+
       this.toasterService.showInfoOnNotCompleted(); 
     }
   }
