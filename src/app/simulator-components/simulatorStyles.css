@@ -165,3 +165,28 @@
 ::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__label {
     font-size: 1rem !important;
 }
+
+
+.custom-panel {
+    /* Adăugați orice stiluri pentru panoul personalizat, de exemplu margini sau fundal */
+    padding: 10px;
+  }
+  
+  .custom-panel-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .option-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  .inputs-container {
+    display: flex;
+    gap: 10px; /* Între inputuri */
+  }
+  
+
+  

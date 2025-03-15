@@ -243,8 +243,10 @@ export class CreditComponent implements OnInit {
 
       this.toasterService.showSuccessOnClear();
     }
-
-    this.toasterService.showInfoOnClear();
+    else 
+    {
+      this.toasterService.showInfoOnClear();
+    }
   }
   
   private replaceRomanianCharacters(text: string): string {
