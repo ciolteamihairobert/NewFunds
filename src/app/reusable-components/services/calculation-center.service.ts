@@ -170,8 +170,8 @@ export class CalculationCenterService {
         soldInitial = initialAmount; 
       }
 
-      dobanda = (soldInitial + monthlySaving) * (Math.pow(1 + annualInterest, 1 / 12) - 1);
-      impozit = tax * dobanda;
+      dobanda = (soldInitial + monthlySaving) * (Math.pow(1 + annualInterest/100, 1 / 12) - 1);
+      impozit = (tax /100) * dobanda;
       totalImpozit += impozit;
       comision = (initialAmount === 0 && monthlySaving === 0) ? 0 : monthlyFee;
       soldFinal = soldInitial + monthlySaving + dobanda - impozit - comision;
@@ -186,12 +186,12 @@ export class CalculationCenterService {
       }
       rows.push(row);
     }
-    const totalSavings = monthlySaving * depositMaturity + initialAmount;
+    const totalSavings = monthlySaving * savingDuration + initialAmount;
     const profitability = parseFloat((((soldFinal - totalSavings) / totalSavings)*100).toFixed(2))
-    this.depositDataService.updateDepositTotalSavings(totalSavings);
+    this.depositDataService.updateDepositTotalSavings(parseFloat(totalSavings.toFixed(2)));
     this.depositDataService.updateDepositProfitability(profitability);
     this.depositDataService.updateDepositRows(rows);
-    this.depositDataService.updateDepositFinalBalance(soldFinal);
-    this.depositDataService.updateDepositTotalTaxPaid(totalImpozit);
+    this.depositDataService.updateDepositFinalBalance(parseFloat(soldFinal.toFixed(2)));
+    this.depositDataService.updateDepositTotalTaxPaid(parseFloat(totalImpozit.toFixed(2)));
   }
 }

@@ -1,13 +1,14 @@
+
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
 import { RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-side-menu',
   standalone: true,
-  imports: [CommonModule, RouterModule, HttpClientModule, MatTooltipModule],
+  imports: [RouterModule, CommonModule, MatTooltipModule],
   templateUrl: './side-menu.component.html',
   styleUrls: ['./side-menu.component.css']
 })

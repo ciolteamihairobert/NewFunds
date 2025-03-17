@@ -6,7 +6,7 @@ let appWindow;
 function createWindow() {
     appWindow = new BrowserWindow({
         frame: false,
-        minWidth: 1100,
+        minWidth: 820,
         minHeight: 700,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
