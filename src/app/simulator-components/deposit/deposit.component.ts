@@ -14,6 +14,7 @@ import { ToasterService } from '../../reusable-components/services/toaster.servi
 import * as XLSX from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { DepositDataService } from './services/deposit-data.service';
 
 @Component({
   selector: 'app-deposit',
@@ -38,6 +39,7 @@ export class DepositComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     public formDataService: FormDataService,
+    private depositDataService: DepositDataService,
     private toasterService: ToasterService) {
       this.depositForm = this.fb.group({
         initialAmount: ['', Validators.required],
@@ -54,7 +56,26 @@ export class DepositComponent implements OnInit {
     this.formDataService.setFormValuesFromSessionStorage('Deposit',this.depositForm);
     this.depositForm.valueChanges.subscribe(() => {
       this.formDataService.setForm(this.depositForm);
-  });
+    });
+    this.depositDataService.currentDepositRows$.subscribe(rows => {
+      this.dataSource.data = rows;
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+      }); 
+    });
+    this.depositDataService.depositTotalSavings$.subscribe(totalSavings => {
+      this.totalSavings = totalSavings;
+    });
+    this.depositDataService.depositFinalBalance$.subscribe(finalBalance => {
+      this.finalBalance = finalBalance;
+    });
+    this.depositDataService.depositProfitability$ .subscribe(profitability => {
+      this.profitability = profitability;
+    });
+    this.depositDataService.depositTotalTaxPaid$.subscribe(totalTaxPaid => {
+      this.totalTaxPaid = totalTaxPaid;
+    });
+
   }
 
   public exportToExcel(): void {
@@ -66,20 +87,20 @@ export class DepositComponent implements OnInit {
     const formData = this.depositForm.value;
     const inputData: any[][] = [];
     inputData.push(['Datele Initiale']);
-    inputData.push(['Suma economisită (Ron)', formData['initialAmount']]);
-    inputData.push(['Suma lunara de economisit', formData['monthlySaving']]);
+    inputData.push(['Suma economisita (Ron)', formData['initialAmount']]);
+    inputData.push(['Suma lunara de economisit (Ron)', formData['monthlySaving']]);
     inputData.push(['Maturitate depozit', formData['depositMaturity']]);
-    inputData.push(['Durata economisirii', formData['savingDuration']]);
-    inputData.push(['Dobanda anuala', formData['annualInterest']]);
-    inputData.push(['Impozit', formData['tax']]);
-    inputData.push(['Comision administrare lunar', formData['monthlyFee']]);
+    inputData.push(['Durata economisirii (luni)', formData['savingDuration']]);
+    inputData.push(['Dobanda anuala (%)', formData['annualInterest']]);
+    inputData.push(['Impozit (%)', formData['tax']]);
+    inputData.push(['Comision administrare lunar (Ron)', formData['monthlyFee']]);
     inputData.push([]);
   
     const tableHeader = ['Luna', 'Sold Initial', 'Suma depusa', 'Dobanda', 'Impozit', 'Comision', 'Sold Final'];
     const tableData: any[][] = [];
-    tableData.push(['Total economisit:', this.totalSavings + ' luni']);
+    tableData.push(['Total economisit:', this.totalSavings + ' RON']);
     tableData.push(['Soldul contului la final:', this.finalBalance + ' RON']);
-    tableData.push(['Profitabilitate:', this.profitability + ' luni']);
+    tableData.push(['Profitabilitate:', this.profitability + ' %']);
     tableData.push(['Total impozit platit:', this.totalTaxPaid + ' RON']);
     tableData.push([]);
     tableData.push(tableHeader);
@@ -137,13 +158,13 @@ export class DepositComponent implements OnInit {
 
     const formData = this.depositForm.value;
     const inputData: any[][] = [
-      ['Suma economisită (Ron)', formData['initialAmount']],
-      ['Suma lunara de economisit', formData['monthlySaving']],
+      ['Suma economisita (Ron)', formData['initialAmount']],
+      ['Suma lunara de economisit (Ron)', formData['monthlySaving']],
       ['Maturitate depozit', formData['depositMaturity']],
-      ['Durata economisirii', formData['savingDuration']],
-      ['Dobanda anuala', formData['annualInterest']],
-      ['Impozit', formData['tax']],
-      ['Comision administrare lunar', formData['monthlyFee']]
+      ['Durata economisirii (luni)', formData['savingDuration']],
+      ['Dobanda anuala (%)', formData['annualInterest']],
+      ['Impozit (%)', formData['tax']],
+      ['Comision administrare lunar (Ron)', formData['monthlyFee']]
     ];
 
     autoTable(doc, {
@@ -156,9 +177,9 @@ export class DepositComponent implements OnInit {
     const lastY = (doc as any).lastAutoTable ? (doc as any).lastAutoTable.finalY : 25;
 
     const summaryData: any[][] = [
-      ['Total economisit:', this.totalSavings + ' luni'],
+      ['Total economisit:', this.totalSavings + ' RON'],
       ['Soldul contului la final:', this.finalBalance + ' RON'],
-      ['Profitabilitate:', this.profitability + ' luni'],
+      ['Profitabilitate:', this.profitability + ' %'],
       ['Total impozit platit:', this.totalTaxPaid + ' RON']
     ];
 

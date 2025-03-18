@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { CreditTableRow } from '../../simulator-components/credit/models/creditTable';
 import { CreditDataService } from '../../simulator-components/credit/services/credit-data.service';
-
+import { DepositDataService } from '../../simulator-components/deposit/services/deposit-data.service';
+import { DepositTableRow } from '../../simulator-components/deposit/models/depositTable';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculationCenterService {
 
-  constructor(private creditDataService: CreditDataService) {}
+  constructor(private creditDataService: CreditDataService,
+    private depositDataService: DepositDataService,
+    //private investmentDataService: InvestmentDataService
+  ) {}
 
   public calculateCreditData() {
     const loanAmount = parseFloat(sessionStorage.getItem('loanAmount')!);
@@ -139,4 +143,55 @@ export class CalculationCenterService {
     this.creditDataService.updateCreditTotalCostToPay(Number(totalCostToPay.toFixed(2)));
     this.creditDataService.updateCreditRows(rows);
   } 
+
+  public calculateDepositData() {
+    const initialAmount = parseFloat(sessionStorage.getItem('initialAmount')!);
+    const monthlySaving = parseFloat(sessionStorage.getItem('monthlySaving')!);
+    const depositMaturity = parseInt(sessionStorage.getItem('depositMaturity')!);
+    const savingDuration = parseInt(sessionStorage.getItem('savingDuration')!);
+    const annualInterest = parseFloat(sessionStorage.getItem('annualInterest')!);
+    const tax = parseFloat(sessionStorage.getItem('tax')!);
+    const monthlyFee = parseFloat(sessionStorage.getItem('monthlyFee')!);
+  
+    let rows: DepositTableRow[] = [];
+    let soldInitial = 0;
+    let dobanda = 0;
+    let impozit = 0;
+    let comision = 0;
+    let soldFinal = 0;
+    let totalImpozit = 0;
+    for (let month = 1; month <= savingDuration; month++) {
+      let row: DepositTableRow;
+
+      if(month != 1){
+        soldInitial = soldFinal;
+      }
+      else{
+        soldInitial = initialAmount; 
+      }
+
+      dobanda = (soldInitial + monthlySaving) * (Math.pow(1 + annualInterest/100, 1 / 12) - 1);
+      impozit = (tax /100) * dobanda;
+      totalImpozit += impozit;
+      comision = (initialAmount === 0 && monthlySaving === 0) ? 0 : monthlyFee;
+      soldFinal = soldInitial + monthlySaving + dobanda - impozit - comision;
+      row = {
+        luna: month,
+        soldInitial: parseFloat(soldInitial.toFixed(2)),
+        sumaDepusa: parseFloat(monthlySaving.toFixed(2)),
+        dobanda: parseFloat(dobanda.toFixed(2)),
+        impozit: parseFloat(impozit.toFixed(2)),
+        comision: parseFloat(comision.toFixed(2)),
+        soldFinal: parseFloat(soldFinal.toFixed(2))
+      }
+      rows.push(row);
+    }
+    const totalSavings = monthlySaving * savingDuration + initialAmount;
+    const profitability = parseFloat((((soldFinal - totalSavings) / totalSavings)*100).toFixed(2))
+    this.depositDataService.updateDepositTotalSavings(parseFloat(totalSavings.toFixed(2)));
+    this.depositDataService.updateDepositProfitability(profitability);
+    this.depositDataService.updateDepositRows(rows);
+    this.depositDataService.updateDepositFinalBalance(parseFloat(soldFinal.toFixed(2)));
+    this.depositDataService.updateDepositTotalTaxPaid(parseFloat(totalImpozit.toFixed(2)));
+  }
 }

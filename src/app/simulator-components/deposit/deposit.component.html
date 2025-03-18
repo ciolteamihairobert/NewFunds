@@ -1,7 +1,7 @@
-<div class="simulator-container">
+<div class="simulator-container" style="max-width: 96.3vw">
   <app-header
-    title="Simulator Depozit"
-    formName="Depozit"
+    title="SIMULATOR DEPOZIT"
+    formName="Deposit"
     [exportToExcel]="exportToExcel.bind(this)"
     [exportToPDF]="exportToPDF.bind(this)"
     [clearSimulation]="clearSimulation.bind(this)"
@@ -20,7 +20,7 @@
           />
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Suma lunară de economisit</mat-label>
+          <mat-label>Suma lunară de economisit (Ron)</mat-label>
           <input
             matInput
             type="text"
@@ -38,7 +38,7 @@
           />
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Durata economisirii</mat-label>
+          <mat-label>Durata economisirii (luni)</mat-label>
           <input
             matInput
             type="text"
@@ -47,7 +47,7 @@
           />
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Dobanda anuală</mat-label>
+          <mat-label>Dobanda anuală (%)</mat-label>
           <input
             matInput
             type="text"
@@ -56,7 +56,7 @@
           />
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Impozit</mat-label>
+          <mat-label>Impozit (%)</mat-label>
           <input
             matInput
             type="text"
@@ -65,7 +65,7 @@
           />
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Comision administrare lunar</mat-label>
+          <mat-label>Comision administrare lunar (RON)</mat-label>
           <input
             matInput
             type="text"
@@ -82,20 +82,32 @@
       <div class="results-container" *ngIf="dataSource.data.length > 0">
         <div class="results">
           <div class="result-item">
-            <span>💰 Total economisit:</span>
-            <div>{{ totalSavings }} luni</div>
+            <span>💰 Total economisit: &nbsp;&nbsp;&nbsp;</span>
+            <div>{{ totalSavings }} RON</div>
           </div>
           <div class="result-item">
-            <span>🏦 Soldul contului la final:</span>
+            <span>🏦 Soldul contului la final:&nbsp;&nbsp;&nbsp;</span>
             <div>{{ finalBalance }} RON</div>
           </div>
           <div class="result-item">
-            <span>📈 Profitabilitate:</span>
+            <span>📈 Profitabilitate:&nbsp;&nbsp;&nbsp;</span>
             <div>{{ profitability }} %</div>
           </div>
           <div class="result-item">
-            <span>💸 Total impozit platit:</span>
-            <div>{{ totalTaxPaid }} RON</div>
+            <span>💸 Total impozit platit:&nbsp;&nbsp;&nbsp;</span>
+            <div>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              {{ totalTaxPaid }}
+              RON
+            </div>
           </div>
         </div>
       </div>

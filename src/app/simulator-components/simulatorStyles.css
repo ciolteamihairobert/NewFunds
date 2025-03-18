@@ -14,8 +14,8 @@
 .simulator-content {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-evenly;
-    flex-grow: 1;
     padding: 0.5rem;
     margin-top: 1rem;
     overflow: auto;
@@ -27,13 +27,10 @@
     flex-wrap: nowrap;
     margin: 0.2rem;
     width: 35%;
+    min-width: 19.5rem;
     margin-bottom: 2rem;
     padding-bottom: 2rem;
     gap: 3rem;
-}
-
-.input-section-content {
-    max-height: 70vh;
 }
 
 .output-section {
@@ -75,34 +72,20 @@
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled):hover {
     background-color: #f5f5f5;
 }
-  
-@media (max-width: 64rem) {
-    .content {
-        overflow-x: hidden;
-        overflow-y: auto;
-        flex-direction: column;
-    }
 
+@media (max-width: 1401px) {
     .input-section {
-        width: 100%;
+        width: fit-content;
+        margin-right: 0rem;
     }
-
     .output-section {
-        width: 100%;
+        width: -webkit-fill-available;
     }
 }
 
-@media (max-width: 48rem) {
-    .ccontainer {
-        padding: 0.5rem;
-        max-height: 100vh;
-    }
-
-    .content {
-        overflow-y: auto;
-        flex-direction: column;
-        height: auto;
-        padding: 0;
+@media (min-width: 2450px) {
+    .input-section {
+        margin-right: 20rem;
     }
 }
 
