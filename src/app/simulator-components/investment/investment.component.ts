@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,6 +16,8 @@ import autoTable from 'jspdf-autotable';
 import { InvestmentTableRow } from './models/investmentTable';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu'
 import { MatButtonModule } from '@angular/material/button';
+import { ModalComponent } from './modal/modal.component';
+import { MatDialog,MatDialogModule } from '@angular/material/dialog';
 
 
 @Component({
@@ -27,7 +29,10 @@ import { MatButtonModule } from '@angular/material/button';
     ReactiveFormsModule, ToastrModule,
     MatTableModule, MatPaginatorModule, 
     MatMenuModule,  
-    MatButtonModule,   
+    MatButtonModule,
+    ModalComponent, 
+    MatButtonModule,
+    MatDialogModule
   ],
     
   templateUrl: './investment.component.html',
@@ -44,32 +49,21 @@ export class InvestmentComponent {
   public dataSource = new MatTableDataSource<InvestmentTableRow>([]);
   public investmentForm: FormGroup<any> = new FormGroup<any>({});
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
+  @ViewChild(ModalComponent) modalComponent!: ModalComponent;
   public totalSavings: number = 0;
   public finalBalance: number = 0;
   public profitability: number = 0;
   public totalPartialWithdrawals: number = 0;
   public totalTaxPaid: number = 0;
-  public selectedOption: any;
-  public topUpWithdrawal = [
-    { value: '1', input1: '', input2: '' },
-    { value: '2', input1: '', input2: '' },
-    { value: '3',  input1: '', input2: '' },
-  ];
 
-  openMenu() {
-    this.menuTrigger.openMenu();
-  }
+  readonly dialog = inject(MatDialog);
 
-  selectOption(method: any) {
-    this.selectedOption = method;
-  }
-  // Funcția care returnează valorile selectate și modificate
-  getSelectedValues(): string {
-    if (this.selectedOption) {
-      return `Metoda: ${this.selectedOption.value}, Valoare 1: ${this.selectedOption.input1}, Valoare 2: ${this.selectedOption.input2}`;
-    }
-    return 'Selectează o opțiune';
+  openDialog() {
+    const dialogRef = this.dialog.open(ModalComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      
+    });
   }
 
   constructor(private fb: FormBuilder,
@@ -88,7 +82,7 @@ export class InvestmentComponent {
   }
 
   ngOnInit(): void {
-    this.formDataService.setFormValuesFromSessionStorage('Deposit',this.investmentForm);
+    this.formDataService.setFormValuesFromSessionStorage('Investment',this.investmentForm);
     this.investmentForm.valueChanges.subscribe(() => {
       this.formDataService.setForm(this.investmentForm);
   });

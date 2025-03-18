@@ -81,33 +81,10 @@
               (keydown)="this.formDataService.allowOnlyNumbers($event)"
             />
           </mat-form-field>
-  
-          <mat-form-field class="small-field">
-            <mat-label>Modifica TopUp sau Retrageri</mat-label>
-            <input matInput [value]="getSelectedValues()" readonly (click)="openMenu()" />
-            <button mat-icon-button matSuffix [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"></button>
-          </mat-form-field>
-          
-          <mat-menu #menu="matMenu" class="custom-panel">
-            <div class="custom-panel-content">
-              <div *ngFor="let method of topUpWithdrawal" class="option-container" (click)="selectOption(method)">
-                <mat-label>{{ method.value }}</mat-label>
-                <div class="inputs-container">
-                  <input type="text" 
-                         [(ngModel)]="method.input1" 
-                         placeholder="Valoare 1" 
-                         (click)="$event.stopPropagation()" />
-                  <input type="text" 
-                         [(ngModel)]="method.input2" 
-                         placeholder="Valoare 2" 
-                         (click)="$event.stopPropagation()" />
-                </div>
-              </div>
-            </div>
-          </mat-menu>
-          
-
         </form>
+        <div class="modal-button">
+          <button mat-flat-button (click)="openDialog()"> Reîncărcări / Retrageri </button>
+        </div>
       </div>
       <div
         class="output-section"

@@ -33,7 +33,7 @@
     cursor: pointer;
     width: 3rem;
     height: 3rem;
-    border-radius: 4px; 
+    border-radius: 0px; 
     -webkit-app-region: no-drag;
     display: flex;
     justify-content: center;

@@ -11,7 +11,7 @@ export const routes: Routes = [
     { path: 'credit', component: CreditComponent },
     { path: 'deposit', component: DepositComponent },
     { path: 'investment', component: InvestmentComponent },
-    { path: 'investment/simulator', component: InvestmentComponent },
+   // { path: 'investment/simulator', component: InvestmentComponent },
 ];
 
 @NgModule({
