@@ -23,13 +23,14 @@
 
 .input-section {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: nowrap;
     margin: 0.2rem;
     width: 35%;
     min-width: 19.5rem;
     margin-bottom: 2rem;
     padding-bottom: 2rem;
+    gap: 3rem;
 }
 
 .output-section {
@@ -148,3 +149,14 @@
 ::ng-deep .mat-mdc-snack-bar-container .mdc-snackbar__label {
     font-size: 1rem !important;
 }
+
+.modal-button{
+  align-self: flex-start; 
+  max-width: 600px;
+}
+
+.modal-button .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+  
+ 

@@ -235,7 +235,9 @@ export class DepositComponent implements OnInit {
 
       this.toasterService.showSuccessOnClear();
     }
-
-    this.toasterService.showInfoOnClear();
+    else 
+    {
+      this.toasterService.showInfoOnClear();
+    }
   }
 }
