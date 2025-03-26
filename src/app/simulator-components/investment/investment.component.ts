@@ -18,6 +18,7 @@ import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu'
 import { MatButtonModule } from '@angular/material/button';
 import { ModalComponent } from './modal/modal.component';
 import { MatDialog,MatDialogModule } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
 
 
 @Component({

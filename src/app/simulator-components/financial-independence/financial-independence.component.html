@@ -1,0 +1,206 @@
+<div class="simulator-container" style="max-width: 96.3vw">
+    <app-header
+      title="PLAN PENTRU SIGURANȚA FINANCIARA"
+      formName="Independenta"
+    >
+    </app-header>
+    <div class="financial-independence-content">
+      <div class="organizational-chart-container">
+        <div class="container">
+          <h1 class="level-1 rectangle">Obiective</h1>
+          <ol class="level-2-wrapper">
+            <li>
+              <h2 class="level-2 rectangle">Stabilitate financiară permanentă</h2>
+            </li>
+            <li>
+              <h2 class="level-2 rectangle">Flexibilitate și profit</h2>
+            </li>
+            <li>
+              <h2 class="level-2 rectangle">Retrageri parțiale din sold</h2>
+            </li>
+            <li>
+              <h2 class="level-2 rectangle">Venit pasiv</h2>
+            </li>
+            <li>
+              <h2 class="level-2 rectangle">O viață mai bună</h2>
+            </li>
+            <li>
+              <h2 class="level-2 rectangle">Posibilitatea de a transmite sumele moștenite</h2>
+            </li>
+            <li>
+              <h2 class="level-2 rectangle">Generarea de venituri pasive</h2>
+            </li>
+          </ol>
+        </div>
+      </div>
+      
+      <div class="results-wrapped">
+        <div class="results-investment-container">
+          <div class="results-item">
+            <div class="results-group">
+              <br>
+              <label>Suma economisita initial</label>
+              <h2>Value</h2>
+            </div>
+          </div>
+          <div class="results-item">
+            <div class="results-group">
+              <br>
+              <label>Suma economisita lunar</label>
+              <h2>Value</h2>
+            </div>
+          </div>
+          <div class="results-item">
+            <div class="results-group">
+              <br>
+              <label>Durata economisirii</label>
+              <h2>Value</h2>
+            </div>
+          </div>
+          <div class="results-item">
+            <div class="results-group">
+              <br>
+              <label>Depuneri suplimentare</label>
+              <h2>Value</h2>
+            </div>
+          </div>
+          <div class="results-item">
+            <div class="results-group">
+              <br>
+              <label>Indexare anuală</label>
+              <h2>Value</h2>
+            </div>
+          </div>
+          <div class="results-item">
+            <div class="results-group">
+              <br>
+              <label>Durata de valabilitate</label>
+              <h2>Value</h2>
+            </div>
+           </div>
+        </div>
+        <div class="table-results">
+          <table mat-table class="mat-elevation-z8 demo-table">
+            <!-- Position Column -->
+            <ng-container matColumnDef="position">
+              <th mat-header-cell *matHeaderCellDef>No.</th>
+              <td mat-cell *matCellDef="let element">/td>
+            </ng-container>
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="weight">
+              <th mat-header-cell *matHeaderCellDef>Weight</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="symbol">
+              <th mat-header-cell *matHeaderCellDef>Symbol</th>
+              <td mat-cell *matCellDef="let element"></td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns;"
+            ></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="results-wrapped">
+        <div class="concept-container">
+          <div class="concept-header option1">
+            <h2>
+              Varianta 1 de folosire a Conceptului
+            </h2>
+          </div>
+          <div class="concept-content">
+            <h3>Aveti posiblitatea ca sumele primite la finalul contractului sa le utilizati pentru a va putea genera in continuare profituri si venituri pasive, astfel va veti putea bucura mai mult de aspectele ce conteaza pentru dumneavoastra. In plus, suma din cont poate fi lasata mostenire. 
+            </h3>
+            <div class="concept-content-wrapped">
+              <div class="concept-content-item option1">
+                <div class="concept-content-group">
+                  <br>
+                  <h3>Astfel, la varsta de x ani valoarea contului dumneavoastra va fi de			
+                  </h3>
+                  <h2>
+                    Z EURO
+                  </h2>
+                </div>
+                </div>
+              <div class="concept-content-item option1">
+                <div class="concept-content-group">
+                  <br>
+                  <h3> Veniturile pasive totale pe perioada de x ani, sunt de		
+                  </h3>
+                  <h2>
+                    Z EURO
+                  </h2>
+                </div>	
+              </div>
+              <div class="concept-content-item option1">
+                <div class="concept-content-group">
+                  <br>
+                  <h3> Venitul pasiv lunar primit in aceasta perioada este de
+                  </h3>
+                  <h2>
+                    Z EURO
+                  </h2>
+                </div>	
+              </div>
+              <div class="concept-content-item option1">
+                <div class="concept-content-group">
+                  <br>
+                  <h3> Benficiul total, calculat ca suma dintre veniturile pasive primite de catre dumneavoastra si mostenirea lasata familiei, este de
+                  </h3>
+                  <h2>
+                    Z EURO
+                  </h2>
+                </div>	
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="concept-container">
+          <div class="concept-header option2">
+            <h2>Varianta 2 de folosire a Conceptului
+            </h2>
+          </div>
+          <div class="concept-content">
+            <h3>
+              O alta posibilitate de utilizare a acestui concept este aceea de a genera venituri pasive atat din randamente cat si din sumele din cont. Astfel, avantajul este ca suma pe care o veti primi lunar va fi mai mare, dar livrandu-se catre dumneavoastra toate sumele din cont, la final nu vor mai ramane bani pentru mostenire. 					
+            </h3>
+            <div class="concept-content-wrapped">
+              <div class="concept-content-item option2">
+                <div class="concept-content-group">
+                  <br>
+                  <h3>Veniturile pasive totale pe perioada de x ani, sunt de			
+                  </h3>
+                  <h2>
+                    Z EURO
+                  </h2>
+                </div>
+                </div>
+              <div class="concept-content-item option2">
+                <div class="concept-content-group">
+                  <br>
+                  <h3> Venitul pasiv lunar primit in aceasta perioada este de				
+                  </h3>
+                  <h2>
+                    Z EURO
+                  </h2>
+                </div>	
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+</div>

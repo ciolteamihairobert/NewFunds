@@ -28,7 +28,7 @@
     </li>
     <li class="sidenav-nav-item">
         <a class="sidenav-nav-link" 
-        routerLink="/investment" 
+        routerLink="/investment-simulator" 
         routerLinkActive="active" 
         matTooltip="Plan Investiții" 
         [matTooltipPosition]="position">
@@ -40,17 +40,16 @@
       matTooltip="Viitorul Copilului" 
       [matTooltipPosition]="position">
         <a class="sidenav-nav-link" 
-        routerLink="/investment/childFuture" 
+        routerLink="/investment-childFuture" 
         routerLinkActive="active">
           <i class="sidenav-link-icon bi bi-person-bounding-box"></i>
         </a>
     </li>
     <li class="sidenav-nav-item" 
-      [ngClass]="{ 'disabled': !isInvestmentSimulatorCompleted }" 
       matTooltip="Independența Financiară" 
       [matTooltipPosition]="position">
         <a class="sidenav-nav-link"  
-        routerLink="/investment/financialIndependence" 
+        routerLink="/investment-financial-independence" 
         routerLinkActive="active">
           <i class="sidenav-link-icon bi bi-cash-coin"></i>
         </a>
