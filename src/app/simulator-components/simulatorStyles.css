@@ -30,8 +30,6 @@
     margin: 0.2rem;
     width: 35%;
     min-width: 19.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
 }
 
 .output-section {
@@ -85,21 +83,18 @@
         height: 100vh; 
     }
 
-   
-    .organizational-chart-container {
-        width: 100%; 
-        height: 100vh;
+    .financial-independence-content .input-section{
+      height: fit-content;
     }
+    
 }
 
 @media (min-width: 2450px) {
     .input-section {
         margin-right: 20rem;
     }
-    .organizational-chart-container {
-        margin-right: 20rem;
-    }
 }
+
 
 .output-section table {
     width: 100%;
@@ -177,15 +172,19 @@
   justify-content: space-evenly;
   padding: 0.5rem;
   margin-top: 1rem;
-  overflow: auto;
+  overflow: auto;  
+  height: 100vh; 
+  box-sizing: border-box;
 }
 
 :root {
-    --level-1:  rgba(0, 191, 118, 0.5);
-    --level-2:  rgba(1, 210, 130, 0.5);
+    --primary:  rgba(0, 191, 118, 0.5);
+    --secondary:  #66b3b3;
+    --white: #f5f5f5;
     --black: black;
   }
   
+
   .organizational-chart-container {
     text-align: center;
     margin: auto;
@@ -193,13 +192,7 @@
     align-items: center;
     border-radius: 0.5rem;
     height: fit-content;
-    width: fit-content;
-  }
-  
-  .organizational-chart-container ol {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    width: 100%;
   }
   
   .organizational-chart-container .container {
@@ -215,70 +208,57 @@
   }
   
   .organizational-chart-container .level-1 {
-    width: 50%;
-    margin: 0 auto 40px;
-    background: #B3E5FC;
+    width: 100%;
+    margin-bottom: 40px;
+    background: var(--secondary);
     border-radius: 0.5rem;
-
-  }
-  
-  .organizational-chart-container .level-1::before {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 20px;
-    background: var(--black);
+    padding: 20px;
   }
   
   .organizational-chart-container .level-2-wrapper {
-    position: relative;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);  
-    gap: 10px;
-    justify-content: center;   
-  }
-  
-.organizational-chart-container .level-2-wrapper::before {
-    content: "";
-    position: absolute;
-    top: -20px;
-    left: 50.05%;  
-    transform: translateX(-50%);  
-    width: calc(100% - 15px); 
-    height: 2px;
-    background: var(--black);
-}
-  
-  .organizational-chart-container .level-2-wrapper > li {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
     position: relative;
-  }
-  
-  .organizational-chart-container .level-2-wrapper > li::before {
-    content: "";
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 20px;
-    background: var(--black);
+    gap: 20px;
+    width: 100%;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
   }
   
   .organizational-chart-container .level-2 {
-    width: 100%;
-    min-width: 150px;  
-    height: 11rem;
-    margin: 0 auto 40px;
-    background: var(--level-2);
-    display: flex;                
-    justify-content: center;      
-    align-items: center;         
-    text-align: center;          
+    width: 200px;
+    height: 100px;
+    background: var(--primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     border-radius: 0.5rem;
   }
+  
+  /* Linii între obiective */
+  .objectives-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--black);
+  }
+  
+  .center-line {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+  }
+  
 
   .results-investment-container{
     display: grid;
@@ -290,14 +270,10 @@
     display: flex;                /* Flexbox activat */
     justify-content: center;      /* Centrează pe orizontală */
     align-items: center;          /* Centrează pe verticală */
-    background: rgba(0, 191, 118, 0.5);
+    background: var(--secondary);
     padding: 20px;
     border-radius: 0.5rem;      /* Colțuri rotunjite */
     height: 100px;     
-  }
-
-  .results-item:nth-child(odd){
-    background: #D1C4E9;
   }
   
   .results-item label{
@@ -318,7 +294,7 @@
   }
 
   .table-results{
-    background: #B3E5FC;
+    background: var(--primary);
     border-radius: 0.5rem; 
     max-width: 100%;
   }
@@ -327,7 +303,7 @@
     position: relative;               /* Poziționare relativă pentru elementele din interior */
     display: flex;                
     flex-direction: column;                
-    background: #B3E5FC;
+    background: var(--white);
     padding: 20px;
     border-radius: 0.5rem;        
     margin-top: 2rem;
@@ -351,8 +327,8 @@
     justify-content: center;
   }
 
-  .concept-header.option1{
-    background: #8ad4f6;
+  .concept-header{
+    background: var(--primary);
   }
 
   .concept-header h2{
@@ -370,34 +346,20 @@
   gap: 10px;  
 }
 
-
 .concept-content-item{
-  display: flex;                /* Flexbox activat */
-    justify-content: center;      /* Centrează pe orizontală */
-    align-items: center;          /* Centrează pe verticală */
-    background: #00af87;  
-    padding: 20px;
-    border-radius: 0.5rem;      /* Colțuri rotunjite */
-    height: 110px;
+  display: flex;                
+    justify-content: center;      
+    align-items: center;          
+    background: var(--primary);  
+    padding: 6px;
+    border-radius: 0.5rem;     
+    height: 100%;
     width: 100%;
 }
 
-.concept-content-item.option1{
-  background: #8ad4f6;
-}
-
-.concept-container:nth-child(even){
-  background:  #D1C4E9;
-}
-
-.concept-header.option2, .concept-content-item.option2{
-  background:  #baa4e0;
-}
-
-
 .concept-content-group{
   display: flex;
-  flex-direction: column;       /* Aranjează `label` și `h2` pe verticală */
+  flex-direction: column;      
   align-items: center;  
   height: fit-content;
   justify-content: center;
@@ -406,3 +368,157 @@
 .concept-content-group h3{
   margin: 0;
 }
+
+.input-financial-independence {
+  background: var(--secondary);
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;  /* Stack pe verticală */
+  align-items: center;    /* Centrare pe orizontală */
+  justify-content: center; /* Centrare pe verticală, dacă e necesar */
+  padding: 20px;
+  border-radius: 0.5rem;
+}
+
+.input-financial-independence .input-section{
+  width:40%;
+}
+
+
+@media (max-width: 1430px) {
+  .organizational-chart-container .level-2-wrapper {
+    grid-template-columns: repeat(2, 1fr);  /* 2 coloane pentru ecrane mici */
+    grid-template-rows: repeat(4, 1fr);  /* 4 rânduri pentru a încerca să încadrezi obiectivele */
+    gap: 10px;
+  }
+
+  .organizational-chart-container .level-2 {
+    min-width: 120px;
+    height: 80px;
+  }
+
+  .objectives-wrapper {
+    display: block;
+  }
+}
+
+/**/
+
+/* organogram  */
+.organogram{
+  --grid-gap: 1rem; 
+  display: grid;
+  gap: var(--grid-gap);
+  color: white;
+  font-family: sans-serif;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+
+.organogram>div{ 
+  display: grid; 
+  justify-content: start;
+  align-items: center;
+  position: relative;
+}
+.organogram>div>span{
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(to right, var(--primary), var(--secondary)); 
+}
+.organogram>.main>span{
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+.organogram>.sub{
+  padding-inline-start: calc(var(--grid-gap) * 2);
+}
+/* lines */
+.organogram>.sub::after{
+  
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: calc(var(--grid-gap) * 2);
+  height: calc(100% + var(--grid-gap));
+  
+  /* position */
+  inset-block-start: auto;
+  inset-inline-end: auto;
+  inset-block-end: 50%;
+  inset-inline-start: var(--grid-gap);
+  
+  /* border */
+  --borderW: 2px;
+  --borderR: 0.5rem;
+  border-style: dashed;
+  border-color: var(--primary);
+  
+  /* border-width */
+  border-block-start-width: 0;
+  border-inline-end-width: 0;
+  border-block-end-width: var(--borderW);
+  border-inline-start-width: var(--borderW);
+ 
+  /* border-radius */
+  border-end-start-radius: var(--borderR);
+}
+
+@media (min-width: 30rem){
+  
+  .organogram{
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 'tl tc tr' 'cl cc cr' 'bl bc br';
+    text-align: center;
+  }
+  .organogram>div{
+    grid-area: var(--area);
+    justify-content: center;
+  }
+  
+  .organogram>.sub{ padding-inline-start: unset }
+  .organogram>.sub>span { 
+    padding-block: 1rem; 
+    padding-inline: 2rem;
+    border-radius: 1rem;
+  }
+  
+  /* set up       |grid-area | position after element  |     border-width      | border-radius */       
+  .organogram>.tl {--area: tl; --i-bs: 50%; --i-is: 50%; --bw-be: 1; --bw-is: 1; --br-es: 1}
+  .organogram>.tc {--area: tc; --i-bs: 50%; --i-is: 50%; --bw-is: 1}
+  .organogram>.tr {--area: tr; --i-bs: 50%; --i-ie: 50%; --bw-be: 1; --bw-ie: 1; --br-ee: 1}
+  .organogram>.cl {--area: cl; --i-bs: 50%; --i-is: 50%; --bw-bs: 1}
+  .organogram>.cc {--area: cc}
+  .organogram>.cr {--area: cr; --i-bs: 50%; --i-ie: 50%; --bw-bs: 1}
+  .organogram>.bl {--area: bl; --i-be: 50%; --i-is: 50%; --bw-bs: 1; --bw-is: 1; --br-ss: 1}
+  .organogram>.bc {--area: bc; --i-be: 50%; --i-is: 50%; --bw-is: 1}
+  .organogram>.br {--area: br; --i-be: 50%; --i-ie: 50%; --bw-bs: 1; --bw-ie: 1; --br-se: 1}
+  
+  .organogram>.sub::after{
+    width: 100%;
+    height: calc(50% + var(--grid-gap) * 1.5);
+   
+    /* position */
+    inset-block-start: var(--i-bs, auto);
+    inset-inline-end: var(--i-ie, auto);
+    inset-block-end: bar(--i-be, auto);
+    inset-inline-start: var(--i-is, auto);
+    
+    /* border-width*/
+    border-block-start-width: calc(var(--borderW) * var(--bw-bs, 0));
+    border-inline-end-width: calc(var(--borderW) * var(--bw-ie, 0));
+    border-block-end-width: calc(var(--borderW) * var(--bw-be, 0));
+    border-inline-start-width: calc(var(--borderW) * var(--bw-is, 0));
+    
+    /* border-radius */
+    border-start-start-radius: calc(var(--borderR) * var(--br-ss, 0));
+    border-start-end-radius: calc(var(--borderR) * var(--br-se, 0));
+    border-end-end-radius: calc(var(--borderR) * var(--br-ee, 0));
+    border-end-start-radius: calc(var(--borderR) * var(--br-es, 0));
+  }
+
+}
+
