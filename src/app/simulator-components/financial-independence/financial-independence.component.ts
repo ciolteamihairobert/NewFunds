@@ -20,16 +20,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
 export class FinancialIndependenceComponent {
  public clientInfoForm: FormGroup<any> = new FormGroup<any>({});
 
- objectives = [
-  'Stabilitate financiară permanentă',
-  'Flexibilitate și profit',
-  'Retrageri parțiale din sold',
-  'Venit pasiv',
-  'O viață mai bună',
-  'Posibilitatea de a transmite sumele moștenite',
-  'Generarea de venituri pasive'
-];
-
  constructor(private fb: FormBuilder,
      public formDataService: FormDataService,) {
        this.clientInfoForm = this.fb.group({
