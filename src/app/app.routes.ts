@@ -5,6 +5,7 @@ import { CreditComponent } from './simulator-components/credit/credit.component'
 import { DepositComponent } from './simulator-components/deposit/deposit.component';
 import { InvestmentComponent } from './simulator-components/investment/investment.component';
 import { FinancialIndependenceComponent } from './simulator-components/financial-independence/financial-independence.component';
+import { ChildFutureComponent } from './simulator-components/child-future/child-future.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,6 +15,7 @@ export const routes: Routes = [
     { path: 'investment', component: InvestmentComponent, },
     { path: 'investment-simulator', component: InvestmentComponent },
     { path: 'investment-financial-independence', component: FinancialIndependenceComponent },
+    { path: 'investment-child-future', component: ChildFutureComponent },
 ];
 
 @NgModule({

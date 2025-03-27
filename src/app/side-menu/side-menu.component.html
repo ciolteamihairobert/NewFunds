@@ -36,11 +36,11 @@
         </a>
     </li>
     <li class="sidenav-nav-item" 
-      [ngClass]="{ 'disabled': !isInvestmentSimulatorCompleted }" 
+      [ngClass]="{ 'enabled': !isInvestmentSimulatorCompleted }" 
       matTooltip="Viitorul Copilului" 
       [matTooltipPosition]="position">
         <a class="sidenav-nav-link" 
-        routerLink="/investment-childFuture" 
+        routerLink="/investment-child-future" 
         routerLinkActive="active">
           <i class="sidenav-link-icon bi bi-person-bounding-box"></i>
         </a>

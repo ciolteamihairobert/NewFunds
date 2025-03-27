@@ -425,3 +425,14 @@
 .margin-right {
   margin-left: 10px;
 }
+
+.child-future-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  overflow: auto;  
+  height: 100vh; 
+  box-sizing: border-box;
+}

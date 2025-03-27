@@ -1,0 +1,120 @@
+<div class="simulator-container" style="max-width: 96.3vw">
+    <app-header
+      title="PLAN PENTRU VIITORUL COPILULUI"
+      formName="ViitorulCopilului"
+    >
+    </app-header>
+    <div class="child-future-content">
+      <div class="organogram">
+        <div class="main cc"><span>OBIECTIVE</span></div>
+        <div class="sub  tl"><span>Viitor sigur pentru copilul tău</span></div>
+        <div class="sub  tc"><span>Flexibilitate și profit</span></div>
+        <div class="sub  tr"><span>Retrageri parțiale din sold</span></div>
+        <div class="sub  cl"><span>Posibilitatea de a oferi acces la studii</span></div>
+        <div class="sub  cr"><span>Bază financiară pentru startul în viață</span></div>
+        <div class="sub  bl"><span>Bază financiară pentru o locuință</span></div>
+        <div class="sub  br"><span>Bază financiară pentru o afacere</span></div>
+      </div>
+      
+      <div class="results-wrapped">
+        <div class="results-investment-container">
+            <div class="result-item">
+              <span>💰 Suma economisita initial:</span>
+              <div>X Euro</div>
+            </div>
+            <div class="result-item">
+              <span>💰 Suma economisita lunar:</span>
+              <div>X Euro</div>
+            </div>
+            <div class="result-item">
+              <span>📈 Evoluție anuală:</span>
+              <div>X %</div>
+            </div>
+        </div>
+        <div class="results-investment-container">
+        <div class="result-item">
+            <span>📈 Indexare anuală:</span>
+            <div>X %</div>
+          </div>
+          <div class="result-item">
+            <span>⏳ Durata economisirii:</span>
+            <div>X luni</div>
+          </div>
+          <div class="result-item">
+            <span>⏳ Durata contractului:</span>
+            <div>X luni</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-results">
+        <table mat-table class="mat-elevation-z8 demo-table">
+          <!-- Position Column -->
+          <ng-container matColumnDef="position">
+            <th mat-header-cell *matHeaderCellDef>No.</th>
+            <td mat-cell *matCellDef="let element"></td>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let element"></td>
+          </ng-container>
+        
+          <!-- Weight Column -->
+          <ng-container matColumnDef="weight">
+            <th mat-header-cell *matHeaderCellDef>Weight</th>
+            <td mat-cell *matCellDef="let element"></td>
+          </ng-container>
+        
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="symbol">
+            <th mat-header-cell *matHeaderCellDef>Symbol</th>
+            <td mat-cell *matCellDef="let element"></td>
+          </ng-container>
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+              mat-row
+          ></tr>
+        </table>
+        Table
+      </div>
+
+      <div class="results-wrapped">
+        <div class="results-investment-container">
+            <div class="result-item">
+              <span>💵 Total sume economisite:</span>
+              <div>X Euro</div>
+            </div>
+            <div class="result-item">
+              <span>🔻 Total retrageri parțiale:</span>
+              <div>X Euro</div>
+            </div>
+            <div class="result-item">
+              <span>💼 Soldul planului la final, după retrageri:</span>
+              <div>X Euro</div>
+            </div>
+        </div>
+        <div class="results-investment-container">
+            <div class="result-item">
+            <span>🪙 Beneficiul total, calculat ca suma retragerilor și soldul rămas este:</span>
+            <div>X Euro</div>
+        </div>
+            <div class="result-item">
+            <span>📈 Rentabilitatea in acest caz este de:</span>
+            <div>X Euro</div>
+        </div>
+            <div class="result-item">
+            <span>💼 Soldul planului la final, fara retrageri pe parcursul contractului este:</span>
+            <div>X Euro</div>
+        </div>
+            <div class="result-item">
+            <span>📈 Rentabilitatea in acest caz este de: </span>
+            <div>X Euro</div>
+            </div>
+        </div>
+      </div>
+    </div>  
+ </div>
+
