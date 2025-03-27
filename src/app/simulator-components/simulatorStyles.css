@@ -1,8 +1,17 @@
+:root {
+  --primary:  rgba(0, 191, 118, 0.5);
+  --secondary:  #f5c1a8;
+  --offwhite: #f5f5f5;
+  --black: black;
+  --accent1: #e9b3c9;    
+  --accent2: #e67da7;    
+}
+
 .simulator-container {
     display: flex;
     flex-direction: column;
     border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 1rem rgba(0, 191, 118, 0.5), 0 0.25rem 1rem rgba(0, 191, 118, 0.5);
+    box-shadow: 0 0.25rem 1rem var(--primary), 0 0.25rem 1rem var(--primary);
     transition: background-color 0.3s ease, transform 0.3s ease;
     padding: 1rem;
     margin-top: 0.5rem;
@@ -22,7 +31,6 @@
   overflow: auto;
 }
 
-
 .input-section {
     display: flex;
     flex-direction: column;
@@ -30,6 +38,7 @@
     margin: 0.2rem;
     width: 35%;
     min-width: 19.5rem;
+    margin-bottom: 4rem;
 }
 
 .output-section {
@@ -69,7 +78,7 @@
 }
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled):hover {
-    background-color: #f5f5f5;
+    background-color: var(--offwhite);
 }
 
 @media (max-width: 1430px) {
@@ -94,7 +103,6 @@
         margin-right: 20rem;
     }
 }
-
 
 .output-section table {
     width: 100%;
@@ -177,94 +185,91 @@
   box-sizing: border-box;
 }
 
-:root {
-    --primary:  rgba(0, 191, 118, 0.5);
-    --secondary:  #66b3b3;
-    --white: #f5f5f5;
-    --black: black;
-    --accent1: #e9b3c9;    /* Galben cald pentru accente energice */
-    --accent2: #e67da7;     /* Roșu coral pentru un contrast mai puternic */
-    --accent3: #ADC6EB;
-  }
+.results-investment-container{
+  display: grid;
+  gap: 10px;  
+}
+
+.results-item{
+  display: flex;               
+  justify-content: center;     
+  align-items: center;          
+  background: var(--secondary);
+  padding: 20px;
+  border-radius: 0.5rem;      
+  height: 100px;     
+}
   
-  .results-investment-container{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);  /* Două coloane */
-    gap: 10px;  
-  }
+.results-item label{
+  font-size: 16px;
+  font-weight: 400;
+}
 
-  .results-item{
-    display: flex;                /* Flexbox activat */
-    justify-content: center;      /* Centrează pe orizontală */
-    align-items: center;          /* Centrează pe verticală */
-    background: var(--secondary);
-    padding: 20px;
-    border-radius: 0.5rem;      /* Colțuri rotunjite */
-    height: 100px;     
-  }
-  
-  .results-item label{
-    font-size: 16px;
-    font-weight: 400;
-  }
+.results-group{
+  display: flex;
+  flex-direction: column;       
+  align-items: center;   
+}
 
-  .results-group{
-    display: flex;
-    flex-direction: column;       /* Aranjează `label` și `h2` pe verticală */
-    align-items: center;   
-  }
+.results-wrapped{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;  
+}
 
-  .results-wrapped{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);  /* Două coloane */
-    gap: 10px;  
-  }
+.table-results{
+  background: var(--primary);
+  border-radius: 0.5rem; 
+  max-width: 100%;
+}
 
-  .table-results{
-    background: var(--primary);
-    border-radius: 0.5rem; 
-    max-width: 100%;
-  }
-
-  .concept-container {
-    position: relative;               /* Poziționare relativă pentru elementele din interior */
-    display: flex;                
-    flex-direction: column;                
-    background: var(--white);
-    padding: 20px;
-    border-radius: 0.5rem;        
-    margin-top: 2rem;
-    color: black;
+.concept-container {
+  position: relative;               
+  display: flex;                
+  flex-direction: column;                
+  background: var(--offwhite);
+  padding: 20px;
+  border-radius: 0.5rem;        
+  margin-top: 2rem;
+  color: black;
 }
 
 .concept-header {
-    position: absolute;             /* Fixare absolută */
-    top: 0;                         /* Fixare în partea de sus */
-    left: 0;                        
-    width: 100%;                    /* Să acopere întreaga lățime */
-    height: 60px;                   /* Înălțime fixă */
-    text-align: center;             
-    padding: 10px 0;                /* Spațiere pe verticală pentru text */
-    border-top-left-radius: 0.5rem;   /* Rotunjire margini de sus */
-    border-top-right-radius: 0.5rem;                /* Text alb */
-    font-weight: bold;
-    line-height: 50px;              /* Centrare verticală a textului în header */
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-  }
+  position: absolute;           
+  top: 0;                         
+  left: 0;                        
+  width: 100%;                    
+  height: 60px;                  
+  text-align: center;             
+  padding: 10px 0;                
+  border-top-left-radius: 0.5rem;  
+  border-top-right-radius: 0.5rem;              
+  font-weight: bold;
+  line-height: 50px;             
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
 
-  .concept-header{
-    background: var(--primary);
-  }
+.concept-header{
+  background: var(--primary);
+}
 
-  .concept-header h2{
-    margin: 0;
-  }
+.concept-container.concept2>.concept-header{
+  background: var(--secondary);
+}
+
+.concept-container.concept2>.concept-content>.concept-content-wrapped>.concept-content-item{
+  background: var(--secondary);
+}
+
+.concept-header h2{
+  margin: 0;
+}
 
 .concept-content {
-    padding-top: 60px;              /* Spațiu pentru a preveni suprapunerea conținutului */
-    text-align: center;
+  padding-top: 60px;             
+  text-align: center;
 }
 
 .concept-content-wrapped{
@@ -275,13 +280,13 @@
 
 .concept-content-item{
   display: flex;                
-    justify-content: center;      
-    align-items: center;          
-    background: var(--primary);  
-    padding: 6px;
-    border-radius: 0.5rem;     
-    height: 100%;
-    width: 100%;
+  justify-content: center;      
+  align-items: center;          
+  background: var(--primary);  
+  padding: 6px;
+  border-radius: 0.5rem;     
+  height: 100%;
+  width: 100%;
 }
 
 .concept-content-group{
@@ -296,25 +301,6 @@
   margin: 0;
 }
 
-.input-financial-independence {
-  background: var(--secondary);
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;  /* Stack pe verticală */
-  align-items: center;    /* Centrare pe orizontală */
-  justify-content: center; /* Centrare pe verticală, dacă e necesar */
-  padding: 20px;
-  border-radius: 0.5rem;
-}
-
-.input-financial-independence .input-section{
-  width:40%;
-}
-
-
-/**/
-
-/* organogram  */
 .organogram{
   --grid-gap: 1rem; 
   display: grid;
@@ -352,7 +338,7 @@
 .organogram>.sub{
   padding-inline-start: calc(var(--grid-gap) * 2);
 }
-/* lines */
+
 .organogram>.sub::after{
   content: "";
   position: absolute;
@@ -360,25 +346,21 @@
   width: calc(var(--grid-gap) * 2);
   height: calc(100% + var(--grid-gap));
   
-  /* position */
   inset-block-start: auto;
   inset-inline-end: auto;
   inset-block-end: 50%;
   inset-inline-start: var(--grid-gap);
   
-  /* border */
   --borderW: 2px;
   --borderR: 0.5rem;
   border-style: dashed;
   border-color: var(--accent2);
   
-  /* border-width */
   border-block-start-width: 0;
   border-inline-end-width: 0;
   border-block-end-width: var(--borderW);
   border-inline-start-width: var(--borderW);
  
-  /* border-radius */
   border-end-start-radius: var(--borderR);
 }
 
@@ -400,8 +382,7 @@
     padding-inline: 2rem;
     border-radius: 1rem;
   }
-  
-  /* set up       |grid-area | position after element  |     border-width      | border-radius */       
+       
   .organogram>.tl {--area: tl; --i-bs: 50%; --i-is: 50%; --bw-be: 1; --bw-is: 1; --br-es: 1}
   .organogram>.tc {--area: tc; --i-bs: 50%; --i-is: 50%; --bw-is: 1}
   .organogram>.tr {--area: tr; --i-bs: 50%; --i-ie: 50%; --bw-be: 1; --bw-ie: 1; --br-ee: 1}
@@ -416,24 +397,31 @@
     width: 100%;
     height: calc(50% + var(--grid-gap) * 1.5);
    
-    /* position */
     inset-block-start: var(--i-bs, auto);
     inset-inline-end: var(--i-ie, auto);
     inset-block-end: bar(--i-be, auto);
     inset-inline-start: var(--i-is, auto);
     
-    /* border-width*/
     border-block-start-width: calc(var(--borderW) * var(--bw-bs, 0));
     border-inline-end-width: calc(var(--borderW) * var(--bw-ie, 0));
     border-block-end-width: calc(var(--borderW) * var(--bw-be, 0));
     border-inline-start-width: calc(var(--borderW) * var(--bw-is, 0));
     
-    /* border-radius */
     border-start-start-radius: calc(var(--borderR) * var(--br-ss, 0));
     border-start-end-radius: calc(var(--borderR) * var(--br-se, 0));
     border-end-end-radius: calc(var(--borderR) * var(--br-ee, 0));
     border-end-start-radius: calc(var(--borderR) * var(--br-es, 0));
   }
-
 }
 
+.input-financial {
+  width: 3rem;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 15px;
+  border: 1px solid #ccc;
+}
+
+.margin-right {
+  margin-left: 10px;
+}

@@ -19,6 +19,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 })
 export class FinancialIndependenceComponent {
  public clientInfoForm: FormGroup<any> = new FormGroup<any>({});
+ income: number = 0;
+ rentalYield: Number = 0;
 
  constructor(private fb: FormBuilder,
      public formDataService: FormDataService,) {

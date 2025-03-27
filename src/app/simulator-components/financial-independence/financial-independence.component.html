@@ -5,7 +5,6 @@
     >
     </app-header>
     <div class="financial-independence-content">
-      
       <div class="organogram">
         <div class="main cc"><span>OBIECTIVE</span></div>
         <div class="sub  tl"><span>Stabilitate financiară permanentă</span></div>
@@ -19,48 +18,44 @@
       
       <div class="results-wrapped">
         <div class="results-investment-container">
-          <div class="results-item">
-            <div class="results-group">
-              <br>
-              <label>Suma economisita initial</label>
-              <h2>Value</h2>
+            <div class="result-item">
+              <span>💰 Suma economisita initial:</span>
+              <div>X Euro</div>
             </div>
-          </div>
-          <div class="results-item">
-            <div class="results-group">
-              <br>
-              <label>Suma economisita lunar</label>
-              <h2>Value</h2>
+            <div class="result-item">
+              <span>💰 Suma economisita lunar:</span>
+              <div>X Euro</div>
             </div>
-          </div>
-          <div class="results-item">
-            <div class="results-group">
-              <br>
-              <label>Durata economisirii</label>
-              <h2>Value</h2>
+            <div class="result-item">
+              <span>⏳ Durata economisirii:</span>
+              <div>X luni</div>
             </div>
-          </div>
-          <div class="results-item">
-            <div class="results-group">
-              <br>
-              <label>Depuneri suplimentare</label>
-              <h2>Value</h2>
+            <div class="result-item">
+              <span>💵 Depuneri suplimentare:</span>
+              <div>X Euro</div>
             </div>
-          </div>
-          <div class="results-item">
-            <div class="results-group">
-              <br>
-              <label>Indexare anuală</label>
-              <h2>Value</h2>
+            <div class="result-item">
+              <span>📈 Indexare anuală:</span>
+              <div>X %</div>
             </div>
-          </div>
-          <div class="results-item">
-            <div class="results-group">
-              <br>
-              <label>Durata de valabilitate</label>
-              <h2>Value</h2>
+            <div class="result-item">
+              <span>⏳ Durata de valabilitate:</span>
+              <div>X luni</div>
             </div>
-           </div>
+            <div class="result-item">
+              <span>💸 Veti putea primi venituri pasive pe o perioada de:</span>
+              <div>
+              <input type="number" [(ngModel)]="income" class="input-financial" />
+              <span class="margin-right">%</span>
+              </div>
+            </div>
+            <div class="result-item">
+              <span>📈 La sumele de mai sus, randamentul estimat al rentei este de:</span>
+              <div>
+                <input type="number" [(ngModel)]="rentalYield" class="input-financial" />
+                <span class="margin-right">luni</span>
+              </div>
+            </div>
         </div>
         <div class="table-results">
           <table mat-table class="mat-elevation-z8 demo-table">
@@ -150,7 +145,7 @@
             </div>
           </div>
         </div>
-        <div class="concept-container">
+        <div class="concept-container concept2">
           <div class="concept-header">
             <h2>Varianta 2 de folosire a Conceptului
             </h2>
@@ -182,31 +177,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="input-financial-independence">
-        <br>
-        <div class="input-section">
-          <form class="input-section-content" [formGroup]="clientInfoForm">
-            <mat-form-field class="small-field">
-              <mat-label> Veti putea primi venituri pasive pe o perioada de (Luni)</mat-label>
-              <input
-                matInput
-                type="text"
-                formControlName="period"
-                (keydown)="this.formDataService.allowOnlyNumbers($event)"
-              />
-            </mat-form-field>
-            <mat-form-field class="small-field">
-              <mat-label> La sumele de mai sus, randamentul estimat al rentei este de (%)</mat-label>
-              <input
-                matInput
-                type="text"
-                formControlName="annuityYield"
-                (keydown)="this.formDataService.allowOnlyNumbers($event)"
-              />
-            </mat-form-field>
-          </form>
         </div>
       </div>
     </div>  
