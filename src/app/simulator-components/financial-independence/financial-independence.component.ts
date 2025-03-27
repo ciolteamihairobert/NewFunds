@@ -22,19 +22,4 @@ export class FinancialIndependenceComponent {
  income: number = 0;
  rentalYield: Number = 0;
 
- constructor(private fb: FormBuilder,
-     public formDataService: FormDataService,) {
-       this.clientInfoForm = this.fb.group({
-         period: ['', Validators.required],
-         annuityYield: ['', Validators.required]
-       });
-   }
-
-   
-  ngOnInit(): void {
-    this.formDataService.setFormValuesFromSessionStorage('Investment',this.clientInfoForm);
-    this.clientInfoForm.valueChanges.subscribe(() => {
-      this.formDataService.setForm(this.clientInfoForm);
-  });
-  }
 }
