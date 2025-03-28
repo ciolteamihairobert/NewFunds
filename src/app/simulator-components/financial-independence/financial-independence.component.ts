@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-financial-independence',
@@ -12,6 +13,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
   imports: [HeaderComponent,  MatFormFieldModule,
   MatInputModule,FormsModule,  CommonModule, 
   ReactiveFormsModule, MatGridListModule,
+  MatTableModule, 
   ],
   templateUrl: './financial-independence.component.html',
   styleUrl: '../simulatorStyles.css'
@@ -19,6 +21,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 export class FinancialIndependenceComponent {
  public income: number = 0;
  public rentalYield: Number = 0;
+ public displayedColumns: string[] = ['age', 'balance'];
+ public dataSource = ELEMENT_DATA;  
  public concept1 = {
   title: 'Varianta 1 de folosire a Conceptului',
   description: 'Aveti posiblitatea ca sumele primite la finalul contractului sa le utilizati pentru a va putea genera in continuare profituri si venituri pasive, astfel va veti putea bucura mai mult de aspectele ce conteaza pentru dumneavoastra. In plus, suma din cont poate fi lasata mostenire.',
@@ -38,3 +42,12 @@ export class FinancialIndependenceComponent {
   ],
 };
 }
+
+const ELEMENT_DATA = [
+  { age: '5 ani', balance: '10.000 EURO'},
+  { age: '10 ani', balance: '15.000 EURO'},
+  { age: '15 ani', balance: '20.000 EURO' },
+  { age: '20 ani', balance: '25.000 EURO' },
+  { age: '25 ani', balance: '30.000 EURO' },
+  { age: '30 ani', balance: '35.000 EURO' },
+];

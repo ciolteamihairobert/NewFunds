@@ -424,3 +424,27 @@
 .input-financial + span{
   margin-left: 10px;
 }
+
+.investment-table-results table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.1rem 0.8rem var(--primary), 0 0.1rem 0.8rem var(--primary);
+  border-collapse: collapse; 
+  width: 100%;
+}
+
+.investment-table-results th,
+.investment-table-results td {
+  padding: 16px;
+  text-align: center;
+  vertical-align: middle;
+  border-right: 1px solid #e0e0e0;  
+}
+
+.investment-table-results th{
+  background-color: var(--primary);  
+}
+
+.investment-table-results tr:nth-child(even) {
+  background-color: var(--accent1);  
+}
