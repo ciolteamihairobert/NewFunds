@@ -13,7 +13,6 @@ export const routes: Routes = [
     { path: 'credit', component: CreditComponent },
     { path: 'deposit', component: DepositComponent },
     { path: 'investment', component: InvestmentComponent, },
-    { path: 'investment-simulator', component: InvestmentComponent },
     { path: 'investment-financial-independence', component: FinancialIndependenceComponent },
     { path: 'investment-child-future', component: ChildFutureComponent },
 ];
