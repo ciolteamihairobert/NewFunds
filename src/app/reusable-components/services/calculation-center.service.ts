@@ -15,18 +15,18 @@ export class CalculationCenterService {
   ) {}
 
   public calculateCreditData() {
-    const loanAmount = parseFloat(sessionStorage.getItem('loanAmount')!);
-    const contractingMoment = parseInt(sessionStorage.getItem('contractingMoment')!);
-    let repaymentPeriod = parseInt(sessionStorage.getItem('repaymentPeriod')!);
-    const repaymentMethod = sessionStorage.getItem('repaymentMethod')!;
-    const monthlyEarlyRepayment = parseFloat(sessionStorage.getItem('monthlyEarlyRepayment')!);
-    const currentInterestRate = parseFloat(sessionStorage.getItem('currentInterestRate')!);
+    const loanAmount = parseFloat(sessionStorage.getItem('creditSim_loanAmount')!);
+    const contractingMoment = parseInt(sessionStorage.getItem('creditSim_contractingMoment')!);
+    let repaymentPeriod = parseInt(sessionStorage.getItem('creditSim_repaymentPeriod')!);
+    const repaymentMethod = sessionStorage.getItem('creditSim_repaymentMethod')!;
+    const monthlyEarlyRepayment = parseFloat(sessionStorage.getItem('creditSim_monthlyEarlyRepayment')!);
+    const currentInterestRate = parseFloat(sessionStorage.getItem('creditSim_currentInterestRate')!);
 
-    const subsequentInterestRate = parseFloat(sessionStorage.getItem('subsequentInterestRate')!);
-    const interestRateReviewPeriod = parseInt(sessionStorage.getItem('interestRateReviewPeriod')!);
-    const monthlyCommission = parseFloat(sessionStorage.getItem('monthlyCommission')!);
-    const gracePeriod = parseInt(sessionStorage.getItem('gracePeriod')!);
-  
+    const subsequentInterestRate = parseFloat(sessionStorage.getItem('creditSim_subsequentInterestRate')!);
+    const interestRateReviewPeriod = parseInt(sessionStorage.getItem('creditSim_interestRateReviewPeriod')!);
+    const monthlyCommission = parseFloat(sessionStorage.getItem('creditSim_monthlyCommission')!);
+    const gracePeriod = parseInt(sessionStorage.getItem('creditSim_gracePeriod')!);
+    
     if (loanAmount <= 0 || repaymentPeriod <= 0) {
       this.creditDataService.updateCreditRows([]);
       return;
@@ -51,14 +51,14 @@ export class CalculationCenterService {
 
       if (month < contractingMoment + 1) {
         row = {
-          luna: month,
-          soldInitial: 0,
-          anuitate: 0,
-          principal: 0,
-          dobanda: 0,
-          comisionLunar: 0,
-          totalPlata: 0,
-          rambursareAnticipata: 0
+          creditSim_luna: month,
+          creditSim_soldInitial: 0,
+          creditSim_anuitate: 0,
+          creditSim_principal: 0,
+          creditSim_dobanda: 0,
+          creditSim_comisionLunar: 0,
+          creditSim_totalPlata: 0,
+          creditSim_rambursareAnticipata: 0
         };
         rows.push(row);
         continue;
@@ -121,16 +121,16 @@ export class CalculationCenterService {
       }
 
       row = {
-        luna: month,
-        soldInitial: parseFloat(soldInitial.toFixed(2)),
-        anuitate: parseFloat(anuitate.toFixed(2)),
-        principal: parseFloat(principal.toFixed(2)),
-        dobanda: parseFloat(dobanda.toFixed(2)),
-        comisionLunar: parseFloat(comisionLunar.toFixed(2)),
-        totalPlata: parseFloat(totalPlata.toFixed(2)),
-        rambursareAnticipata: parseFloat(rambursareAnticipata.toFixed(2))
+        creditSim_luna: month,
+        creditSim_soldInitial: parseFloat(soldInitial.toFixed(2)),
+        creditSim_anuitate: parseFloat(anuitate.toFixed(2)),
+        creditSim_principal: parseFloat(principal.toFixed(2)),
+        creditSim_dobanda: parseFloat(dobanda.toFixed(2)),
+        creditSim_comisionLunar: parseFloat(comisionLunar.toFixed(2)),
+        creditSim_totalPlata: parseFloat(totalPlata.toFixed(2)),
+        creditSim_rambursareAnticipata: parseFloat(rambursareAnticipata.toFixed(2))
       };
-      
+
       if (soldInitial === 0) {
         totalPeriod--;
         break;
@@ -145,13 +145,13 @@ export class CalculationCenterService {
   } 
 
   public calculateDepositData() {
-    const initialAmount = parseFloat(sessionStorage.getItem('initialAmount')!);
-    const monthlySaving = parseFloat(sessionStorage.getItem('monthlySaving')!);
-    const depositMaturity = parseInt(sessionStorage.getItem('depositMaturity')!);
-    const savingDuration = parseInt(sessionStorage.getItem('savingDuration')!);
-    const annualInterest = parseFloat(sessionStorage.getItem('annualInterest')!);
-    const tax = parseFloat(sessionStorage.getItem('tax')!);
-    const monthlyFee = parseFloat(sessionStorage.getItem('monthlyFee')!);
+    const initialAmount = parseFloat(sessionStorage.getItem('depositSim_initialAmount')!);
+    const monthlySaving = parseFloat(sessionStorage.getItem('depositSim_monthlySaving')!);
+    const depositMaturity = parseInt(sessionStorage.getItem('depositSim_depositMaturity')!);
+    const savingDuration = parseInt(sessionStorage.getItem('depositSim_savingDuration')!);
+    const annualInterest = parseFloat(sessionStorage.getItem('depositSim_annualInterest')!);
+    const tax = parseFloat(sessionStorage.getItem('depositSim_tax')!);
+    const monthlyFee = parseFloat(sessionStorage.getItem('depositSim_monthlyFee')!);
   
     let rows: DepositTableRow[] = [];
     let soldInitial = 0;
@@ -176,13 +176,13 @@ export class CalculationCenterService {
       comision = (initialAmount === 0 && monthlySaving === 0) ? 0 : monthlyFee;
       soldFinal = soldInitial + monthlySaving + dobanda - impozit - comision;
       row = {
-        luna: month,
-        soldInitial: parseFloat(soldInitial.toFixed(2)),
-        sumaDepusa: parseFloat(monthlySaving.toFixed(2)),
-        dobanda: parseFloat(dobanda.toFixed(2)),
-        impozit: parseFloat(impozit.toFixed(2)),
-        comision: parseFloat(comision.toFixed(2)),
-        soldFinal: parseFloat(soldFinal.toFixed(2))
+        depositSim_luna: month,
+        depositSim_soldInitial: parseFloat(soldInitial.toFixed(2)),
+        depositSim_sumaDepusa: parseFloat(monthlySaving.toFixed(2)),
+        depositSim_dobanda: parseFloat(dobanda.toFixed(2)),
+        depositSim_impozit: parseFloat(impozit.toFixed(2)),
+        depositSim_comision: parseFloat(comision.toFixed(2)),
+        depositSim_soldFinal: parseFloat(soldFinal.toFixed(2))
       }
       rows.push(row);
     }
@@ -193,5 +193,9 @@ export class CalculationCenterService {
     this.depositDataService.updateDepositRows(rows);
     this.depositDataService.updateDepositFinalBalance(parseFloat(soldFinal.toFixed(2)));
     this.depositDataService.updateDepositTotalTaxPaid(parseFloat(totalImpozit.toFixed(2)));
+  }
+
+  public calculateInvestmentData() {
+    
   }
 }

@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { MatTooltipModule, TooltipPosition } from '@angular/material/tooltip';
 import { ToasterService } from '../services/toaster.service';
 import { CalculationCenterService } from '../services/calculation-center.service';
+import { SimulationStateService } from '../../side-menu/services/simulation-state.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,8 @@ export class HeaderComponent {
 
   constructor(private formDataService: FormDataService,
     private calculationService: CalculationCenterService,
-    private toasterService: ToasterService
+    private toasterService: ToasterService,
+    private simulationStateService: SimulationStateService
   ) {}
 
   ngOnInit() {
@@ -33,7 +35,6 @@ export class HeaderComponent {
   }
 
   public runSimulation() {
-    console.log('aic')
     if(this.inputForm) {
       this.inputForm.markAllAsTouched();
       if (!this.inputForm.valid) {
@@ -44,24 +45,31 @@ export class HeaderComponent {
       for(let value in this.inputForm.value){
         sessionStorage.setItem(value, this.inputForm!.value[value]);
       }
-      console.log('aic1')
+      
       if(this.formName === "Credit"){
+        this.simulationStateService.updateCreditSimRunning(true);
         this.calculationService.calculateCreditData();
       }
       if(this.formName === "Deposit"){
-        console.log('aic3')
+        this.simulationStateService.updateDepositSimRunning(true);
         this.calculationService.calculateDepositData();
+      }
+      if(this.formName === "Investment"){
+        this.simulationStateService.updateDepositSimRunning(true);
+        this.calculationService.calculateInvestmentData();
       }
     } 
     else {
-      if(sessionStorage.getItem('loanAmount') !== null && this.formName === "Credit"){
-        console.log('aic5')
+      if(sessionStorage.getItem('creditSim_loanAmount') !== null && this.formName === "Credit"){
         this.calculationService.calculateCreditData();
         return;
       }
-      if(sessionStorage.getItem('initialAmount') !== null && this.formName === "Deposit"){
-        console.log('aic4')
+      if(sessionStorage.getItem('depositSim_initialAmount') !== null && this.formName === "Deposit"){
         this.calculationService.calculateDepositData();
+        return;
+      }
+      if(sessionStorage.getItem('investmentSim_singleDeposit') !== null && this.formName === "Investment"){
+        this.calculationService.calculateInvestmentData();
         return;
       }
 

@@ -11,20 +11,20 @@
     <div class="input-section">
       <form class="input-section-content" [formGroup]="depositForm">
         <mat-form-field class="small-field">
-          <mat-label>Suma economisită (Ron)</mat-label>
+          <mat-label>Suma economisită (Valută)</mat-label>
           <input
             matInput
             type="text"
-            formControlName="initialAmount"
+            formControlName="depositSim_initialAmount"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Suma lunară de economisit (Ron)</mat-label>
+          <mat-label>Suma lunară de economisit (Valută)</mat-label>
           <input
             matInput
             type="text"
-            formControlName="monthlySaving"
+            formControlName="depositSim_monthlySaving"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
@@ -33,16 +33,16 @@
           <input
             matInput
             type="text"
-            formControlName="depositMaturity"
+            formControlName="depositSim_depositMaturity"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Durata economisirii (luni)</mat-label>
+          <mat-label>Durata economisirii (Luni)</mat-label>
           <input
             matInput
             type="text"
-            formControlName="savingDuration"
+            formControlName="depositSim_savingDuration"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
@@ -51,7 +51,7 @@
           <input
             matInput
             type="text"
-            formControlName="annualInterest"
+            formControlName="depositSim_annualInterest"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
@@ -60,16 +60,16 @@
           <input
             matInput
             type="text"
-            formControlName="tax"
+            formControlName="depositSim_tax"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Comision administrare lunar (RON)</mat-label>
+          <mat-label>Comision administrare lunar (Valută)</mat-label>
           <input
             matInput
             type="text"
-            formControlName="monthlyFee"
+            formControlName="depositSim_monthlyFee"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
@@ -83,15 +83,15 @@
         <div class="results">
           <div class="result-item">
             <span>💰 Total economisit: &nbsp;&nbsp;&nbsp;</span>
-            <div>{{ totalSavings }} RON</div>
+            <div>{{ depositSim_totalSavings }} RON</div>
           </div>
           <div class="result-item">
             <span>🏦 Soldul contului la final:&nbsp;&nbsp;&nbsp;</span>
-            <div>{{ finalBalance }} RON</div>
+            <div>{{ depositSim_finalBalance }} RON</div>
           </div>
           <div class="result-item">
             <span>📈 Profitabilitate:&nbsp;&nbsp;&nbsp;</span>
-            <div>{{ profitability }} %</div>
+            <div>{{ depositSim_profitability }} %</div>
           </div>
           <div class="result-item">
             <span>💸 Total impozit platit:&nbsp;&nbsp;&nbsp;</span>
@@ -105,7 +105,7 @@
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              {{ totalTaxPaid }}
+              {{ depositSim_totalTaxPaid }}
               RON
             </div>
           </div>
@@ -116,33 +116,47 @@
         [dataSource]="dataSource"
         *ngIf="dataSource.data.length > 0"
       >
-        <ng-container matColumnDef="luna">
+        <ng-container matColumnDef="depositSim_luna">
           <th mat-header-cell *matHeaderCellDef>Luna</th>
-          <td mat-cell *matCellDef="let element">{{ element.luna }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.depositSim_luna }}
+          </td>
         </ng-container>
-        <ng-container matColumnDef="soldInitial">
+        <ng-container matColumnDef="depositSim_soldInitial">
           <th mat-header-cell *matHeaderCellDef>Sold Inițial</th>
-          <td mat-cell *matCellDef="let element">{{ element.soldInitial }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.depositSim_soldInitial }}
+          </td>
         </ng-container>
-        <ng-container matColumnDef="sumaDepusa">
+        <ng-container matColumnDef="depositSim_sumaDepusa">
           <th mat-header-cell *matHeaderCellDef>Suma depusă</th>
-          <td mat-cell *matCellDef="let element">{{ element.sumaDepusa }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.depositSim_sumaDepusa }}
+          </td>
         </ng-container>
-        <ng-container matColumnDef="dobanda">
+        <ng-container matColumnDef="depositSim_dobanda">
           <th mat-header-cell *matHeaderCellDef>Dobândă</th>
-          <td mat-cell *matCellDef="let element">{{ element.dobanda }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.depositSim_dobanda }}
+          </td>
         </ng-container>
-        <ng-container matColumnDef="impozit">
+        <ng-container matColumnDef="depositSim_impozit">
           <th mat-header-cell *matHeaderCellDef>Impozit</th>
-          <td mat-cell *matCellDef="let element">{{ element.impozit }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.depositSim_impozit }}
+          </td>
         </ng-container>
-        <ng-container matColumnDef="comision">
+        <ng-container matColumnDef="depositSim_comision">
           <th mat-header-cell *matHeaderCellDef>Comision</th>
-          <td mat-cell *matCellDef="let element">{{ element.comision }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.depositSim_comision }}
+          </td>
         </ng-container>
-        <ng-container matColumnDef="soldFinal">
+        <ng-container matColumnDef="depositSim_soldFinal">
           <th mat-header-cell *matHeaderCellDef>Sold final</th>
-          <td mat-cell *matCellDef="let element">{{ element.soldFinal }}</td>
+          <td mat-cell *matCellDef="let element">
+            {{ element.depositSim_soldFinal }}
+          </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

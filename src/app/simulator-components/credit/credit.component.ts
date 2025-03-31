@@ -11,10 +11,9 @@ import { CreditDataService } from './services/credit-data.service';
 import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from '../../reusable-components/header/header.component';
 import { FormDataService } from '../../reusable-components/services/form-data.service';
-import { ToasterService } from '../../reusable-components/services/toaster.service';
-import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import { creditSim_displayedColumns, creditSim_repaymentMethods } from '../constants';
+import { SimulationStateService } from '../../side-menu/services/simulation-state.service';
+import { ExportService } from '../../reusable-components/services/export-data.service';
 
 @Component({
   selector: 'app-credit',
@@ -23,42 +22,38 @@ import autoTable from 'jspdf-autotable';
     MatInputModule, MatFormFieldModule,
     MatSelectModule, FormsModule,
     ReactiveFormsModule, ToastrModule,
-    MatTableModule, MatPaginatorModule
-  ],
+    MatTableModule, MatPaginatorModule],
   templateUrl: './credit.component.html',
   styleUrl: '../simulatorStyles.css'
 })
 
 export class CreditComponent implements OnInit {
-  public repaymentMethods = [
-    { value: '1', viewValue: 'Anuități constante' },
-    { value: '2', viewValue: 'Rate lunare constante' },
-    { value: '3', viewValue: 'Rambursare totală la scadență' }
-  ];
+  public repaymentMethods = creditSim_repaymentMethods;
+  public displayedColumns = creditSim_displayedColumns;
   public months: string[] = Array.from({ length: 41 }, (_, i) => (i * 3).toString());
-  public displayedColumns = ['luna', 'soldInitial', 'anuitate', 'principal', 'dobanda', 'comisionLunar', 'totalPlata', 'rambursareAnticipata']
   public dataSource = new MatTableDataSource<CreditTableRow>([]);
   public creditForm: FormGroup<any> = new FormGroup<any>({});
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  public totalToPay: number = 0;
-  public totalPeriod: number = 0;
+  public creditSim_totalToPay: number = 0;
+  public creditSim_totalPeriod: number = 0;
 
   constructor(
     private fb: FormBuilder,
     public formDataService: FormDataService,
     private creditDataService: CreditDataService,
-    private toasterService: ToasterService) {
+    private exportService: ExportService,
+    private simulationStateService: SimulationStateService) {
       this.creditForm = this.fb.group({
-        loanAmount: ['', Validators.required],
-        contractingMoment: ['', Validators.required],
-        repaymentPeriod: ['', Validators.required],
-        repaymentMethod: ['', Validators.required],
-        monthlyEarlyRepayment: ['', Validators.required],
-        currentInterestRate: ['', Validators.required],
-        subsequentInterestRate: ['', Validators.required],
-        interestRateReviewPeriod: ['', Validators.required],
-        monthlyCommission: ['', Validators.required],
-        gracePeriod: ['', Validators.required],
+        creditSim_loanAmount: ['', Validators.required],
+        creditSim_contractingMoment: ['', Validators.required],
+        creditSim_repaymentPeriod: ['', Validators.required],
+        creditSim_repaymentMethod: ['', Validators.required],
+        creditSim_monthlyEarlyRepayment: ['', Validators.required],
+        creditSim_currentInterestRate: ['', Validators.required],
+        creditSim_subsequentInterestRate: ['', Validators.required],
+        creditSim_interestRateReviewPeriod: ['', Validators.required],
+        creditSim_monthlyCommission: ['', Validators.required],
+        creditSim_gracePeriod: ['', Validators.required],
       });
   }
 
@@ -74,196 +69,73 @@ export class CreditComponent implements OnInit {
       }); 
     });
     this.creditDataService.creditTotalPeriod$.subscribe(totalPeriod => {
-      this.totalPeriod = totalPeriod;
+      this.creditSim_totalPeriod = totalPeriod;
     });
     this.creditDataService.creditTotalCostToPay$.subscribe(totalToPay => {
-      this.totalToPay = totalToPay;
+      this.creditSim_totalToPay = totalToPay;
     });
   }
 
   public exportToExcel(): void {
-    console.log(this.creditForm);
-    if (this.dataSource.data.length === 0) {
-      this.toasterService.showInfoOnExport();
-      return;
-    }
-
-    const formData = this.creditForm.value;
-    const inputData: any[][] = [];
-    inputData.push(['Datele Initiale']);
-    inputData.push(['Suma împrumutată (Ron)', formData['loanAmount']]);
-    inputData.push(['Momentul contractării (după ... luni)', formData['contractingMoment']]);
-    inputData.push(['Perioada de rambursare (Luni)', formData['repaymentPeriod']]);
-    inputData.push(['Modul de rambursare', this.repaymentMethods[formData['repaymentMethod']].viewValue]);
-    inputData.push(['Rambursare anticipată lunară (Ron)', formData['monthlyEarlyRepayment']]);
-    inputData.push(['Rata dobânzii actuale (%)', formData['currentInterestRate']]);
-    inputData.push(['Rata dobânzii ulterioare (%)', formData['subsequentInterestRate']]);
-    inputData.push(['Revizuirea ratei dobânzii (Luni)', formData['interestRateReviewPeriod']]);
-    inputData.push(['Comision lunar (%)', formData['monthlyCommission']]);
-    inputData.push(['Perioada de grație (Luni)', formData['gracePeriod']]);
-    inputData.push([]);
-  
-    const tableHeader = ['Luna', 'Sold Initial', 'Anuitate', 'Principal', 'Dobanda', 'Comision Lunar', 'Total Plata', 'Rambursare Anticipata'];
-    const tableData: any[][] = [];
-    tableData.push(['Creditul se poate închide în:', this.totalPeriod + ' luni']);
-    tableData.push(['Totalul de rambursat este:', this.totalToPay + ' RON']);
-    tableData.push([]);
-    tableData.push(tableHeader);
-    this.dataSource.data.forEach(row => {
-      tableData.push([
-        row.luna,
-        row.soldInitial,
-        row.anuitate,
-        row.principal,
-        row.dobanda,
-        row.comisionLunar,
-        row.totalPlata,
-        row.rambursareAnticipata
-      ]);
-    });
-    const finalData = inputData.concat(tableData);
-  
-    const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(finalData);
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  
-    ws['!cols'] = [
-      { wch: 30 },
-      { wch: 30 },
-      { wch: 30 },
-      { wch: 30 },
-      { wch: 30 },
-      { wch: 35 },
-      { wch: 30 },
-      { wch: 30 }
-    ];
-  
-    for (const cell in ws) {
-      if (ws.hasOwnProperty(cell) && cell[0] !== '!') {
-        ws[cell].s = ws[cell].s || {};
-        ws[cell].s.alignment = { horizontal: 'center', vertical: 'center' };
-      }
-    }
-  
-    const currentDate = new Date();
-    const formattedDate = currentDate.toISOString().replace(/T/, '_').replace(/\..+/, '');
-  
-    XLSX.utils.book_append_sheet(wb, ws, 'SimulatorDeCredit');
-    XLSX.writeFile(wb, 'SimulatorDeCredit' + formattedDate + '.xlsx');
-  }
-
-  public exportToPDF(): void {
-    if (this.dataSource.data.length === 0) {
-      this.toasterService.showInfoOnExport();
-      return;
-    }
-
-    const doc = new jsPDF();
-
-    doc.setFontSize(14);
-    doc.text('Simulator de Credit', 105, 15, { align: 'center' });
-
     const formData = this.creditForm.value;
     const inputData: any[][] = [
-      ['Suma împrumutata (Ron)', formData['loanAmount']],
-      ['Momentul contractarii (dupa ... luni)', formData['contractingMoment']],
-      ['Perioada de rambursare (Luni)', formData['repaymentPeriod']],
-      ['Modul de rambursare', this.replaceRomanianCharacters(this.repaymentMethods[formData['repaymentMethod']].viewValue)],
-      ['Rambursare anticipata lunara (Ron)', formData['monthlyEarlyRepayment']],
-      ['Rata dobanzii actuale (%)', formData['currentInterestRate']],
-      ['Rata dobanzii ulterioare (%)', formData['subsequentInterestRate']],
-      ['Revizuirea ratei dobanzii (Luni)', formData['interestRateReviewPeriod']],
-      ['Comision lunar (%)', formData['monthlyCommission']],
-      ['Perioada de gratie (Luni)', formData['gracePeriod']]
+      ['Datele Initiale'],
+      ['Suma imprumutata', formData['creditSim_loanAmount']],
+      ['Momentul contractarii (dupa ... luni)', formData['creditSim_contractingMoment']],
+      ['Perioada de rambursare (Luni)', formData['creditSim_repaymentPeriod']],
+      ['Modul de rambursare', this.repaymentMethods[formData['creditSim_repaymentMethod']].viewValue],
+      ['Rambursare anticipata lunara (Ron)', formData['creditSim_monthlyEarlyRepayment']],
+      ['Rata dobanzii actuale (%)', formData['creditSim_currentInterestRate']],
+      ['Rata dobanzii ulterioare (%)', formData['creditSim_subsequentInterestRate']],
+      ['Revizuirea ratei dobanzii (Luni)', formData['creditSim_interestRateReviewPeriod']],
+      ['Comision lunar (%)', formData['creditSim_monthlyCommission']],
+      ['Perioada de gratie (Luni)', formData['creditSim_gracePeriod']],
     ];
-
-    autoTable(doc, {
-      body: inputData,
-      startY: 25,
-      styles: { halign: 'left', cellPadding: 1},
-      alternateRowStyles: { fillColor: [240, 240, 240] }
-    });
-
-    const lastY = (doc as any).lastAutoTable ? (doc as any).lastAutoTable.finalY : 25;
-
-    const summaryData: any[][] = [
-      ['Creditul se poate inchide in:', this.totalPeriod + ' luni'],
-      ['Totalul de rambursat este:', this.totalToPay + ' RON']
+  
+    const summaryData = [
+      ['Creditul se poate inchide in:', this.creditSim_totalPeriod + ' luni'],
+      ['Totalul de rambursat este:', this.creditSim_totalToPay]
     ];
-
-    autoTable(doc, {
-      body: summaryData,
-      startY: lastY + 10,
-      styles: { halign: 'center', fontSize: 10, cellPadding: 3 }
-    });
-
-    const tableHeader = ['Luna', 'Sold Initial', 'Anuitate', 'Principal', 'Dobanda', 'Comision Lunar', 'Total Plata', 'Rambursare Anticipata'];
-    const tableData: any[][] = this.dataSource.data.map(row => [
-      row.luna,
-      row.soldInitial,
-      row.anuitate,
-      row.principal,
-      row.dobanda,
-      row.comisionLunar,
-      row.totalPlata,
-      row.rambursareAnticipata
-    ]);
-
-    const newStartY = (doc as any).lastAutoTable ? (doc as any).lastAutoTable.finalY : lastY + 10;
-
-    autoTable(doc, {
-      head: [tableHeader],
-      body: tableData,
-      startY: newStartY + 10,
-      styles: { fontSize: 11, cellPadding: 2 },
-      headStyles: { fillColor: [52, 152, 219], textColor: 255, fontSize: 10 },
-      alternateRowStyles: { fillColor: [240, 240, 240] },
-      columnStyles: {
-        0: { halign: 'center' },
-        1: { halign: 'center' },
-        2: { halign: 'center' },
-        3: { halign: 'center' },
-        4: { halign: 'center' },
-        5: { halign: 'center' },
-        6: { halign: 'center' },
-        7: { halign: 'center' }
-      }
-    });
-
-    const currentDate = new Date();
-    const formattedDate = currentDate.toISOString().slice(0, 19).replace('T', '_').replace(/:/g, '-');
-
-    doc.save(`SimulatorDeCredit_${formattedDate}.pdf`);
+    
+    const tableDisplayHeader= ['Luna', 'Sold Initial', 'Anuitate', 'Principal', 'Dobanda', 'Comision Lunar', 'Total Plata', 'Rambursare Anticipata'];
+    const tableHeader = ['creditSim_luna', 'creditSim_soldInitial', 'creditSim_anuitate', 'creditSim_principal', 'creditSim_dobanda', 'creditSim_comisionLunar', 'creditSim_totalPlata', 'creditSim_rambursareAnticipata'];
+    
+    this.exportService.exportToExcel(this.dataSource.data, inputData, summaryData, tableHeader, tableDisplayHeader, 'Simulatare_De_Credit');
+  }
+  
+  public exportToPDF(): void {
+    const formData = this.creditForm.value;
+    const inputData: any[][] = [
+      ['Suma împrumutata (Ron)', formData['creditSim_loanAmount']],
+      ['Momentul contractarii (dupa ... luni)', formData['creditSim_contractingMoment']],
+      ['Perioada de rambursare (Luni)', formData['creditSim_repaymentPeriod']],
+      ['Modul de rambursare', this.repaymentMethods[formData['creditSim_repaymentMethod']].viewValue],
+      ['Rambursare anticipata lunara (Ron)', formData['creditSim_monthlyEarlyRepayment']],
+      ['Rata dobanzii actuale (%)', formData['creditSim_currentInterestRate']],
+      ['Rata dobanzii ulterioare (%)', formData['creditSim_subsequentInterestRate']],
+      ['Revizuirea ratei dobanzii (Luni)', formData['creditSim_interestRateReviewPeriod']],
+      ['Comision lunar (%)', formData['creditSim_monthlyCommission']],
+      ['Perioada de gratie (Luni)', formData['creditSim_gracePeriod']]
+    ];
+  
+    const summaryData = [
+      ['Creditul se poate inchide in:', this.creditSim_totalPeriod + ' luni'],
+      ['Totalul de rambursat este:', this.creditSim_totalToPay]
+    ];
+  
+    const tableDisplayHeader = ['Luna', 'Sold Initial', 'Anuitate', 'Principal', 'Dobanda', 'Comision Lunar', 'Total Plata', 'Rambursare Anticipata'];
+    const tableHeader = ['creditSim_luna', 'creditSim_soldInitial', 'creditSim_anuitate', 'creditSim_principal', 'creditSim_dobanda', 'creditSim_comisionLunar', 'creditSim_totalPlata', 'creditSim_rambursareAnticipata'];
+  
+    this.exportService.exportToPDF(this.dataSource.data, inputData, summaryData, tableHeader, tableDisplayHeader, 'Simulare de Credit');
   }
 
   public clearSimulation(): void {
-    if(this.creditForm.valid) {
-      this.dataSource.data = [];
-      sessionStorage.clear();
-      this.creditForm.reset();
-
-      this.toasterService.showSuccessOnClear();
-    }
-    else 
-    {
-      this.toasterService.showInfoOnClear();
-    }
-  }
-  
-  private replaceRomanianCharacters(text: string): string {
-    const charMap: { [key: string]: string } = {
-      'ș': 's',
-      'ț': 't',
-      'ă': 'a',
-      'î': 'i',
-      'â': 'a',
-      'Ș': 'S',
-      'Ț': 'T',
-      'Ă': 'A',
-      'Î': 'I',
-      'Â': 'A'
-    };
-  
-    return text.replace(/[șțăîâȘȚĂÎÂ]/g, match => charMap[match]);
+    this.formDataService.clearSimulation(
+      this.creditForm,
+      this.dataSource,
+      'creditSim_'
+    );
+    this.simulationStateService.updateCreditSimRunning(false);
   }
 }
  

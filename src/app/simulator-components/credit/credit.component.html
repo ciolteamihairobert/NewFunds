@@ -11,11 +11,11 @@
     <div class="input-section">
       <form class="input-section-content" [formGroup]="creditForm">
         <mat-form-field class="small-field">
-          <mat-label>Suma împrumutată (Ron)</mat-label>
+          <mat-label>Suma împrumutată (Valută)</mat-label>
           <input
             matInput
             type="text"
-            formControlName="loanAmount"
+            formControlName="creditSim_loanAmount"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
@@ -24,7 +24,7 @@
           <input
             matInput
             type="text"
-            formControlName="contractingMoment"
+            formControlName="creditSim_contractingMoment"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
@@ -33,13 +33,13 @@
           <input
             matInput
             type="text"
-            formControlName="repaymentPeriod"
+            formControlName="creditSim_repaymentPeriod"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
         <mat-form-field class="small-field">
           <mat-label>Modul de rambursare</mat-label>
-          <mat-select formControlName="repaymentMethod">
+          <mat-select formControlName="creditSim_repaymentMethod">
             <mat-option
               *ngFor="let method of repaymentMethods"
               [value]="method.value"
@@ -49,11 +49,11 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field class="small-field">
-          <mat-label>Rambursare anticipată lunară (Ron)</mat-label>
+          <mat-label>Rambursare anticipată lunară (Valută)</mat-label>
           <input
             matInput
             type="text"
-            formControlName="monthlyEarlyRepayment"
+            formControlName="creditSim_monthlyEarlyRepayment"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
@@ -62,7 +62,7 @@
           <input
             matInput
             type="text"
-            formControlName="currentInterestRate"
+            formControlName="creditSim_currentInterestRate"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
@@ -71,13 +71,13 @@
           <input
             matInput
             type="text"
-            formControlName="subsequentInterestRate"
+            formControlName="creditSim_subsequentInterestRate"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
         <mat-form-field class="small-field">
           <mat-label>Revizuirea ratei dobânzii (Luni)</mat-label>
-          <mat-select formControlName="interestRateReviewPeriod">
+          <mat-select formControlName="creditSim_interestRateReviewPeriod">
             <mat-option *ngFor="let period of months" [value]="period">
               {{ period }}
             </mat-option>
@@ -88,13 +88,13 @@
           <input
             matInput
             type="text"
-            formControlName="monthlyCommission"
+            formControlName="creditSim_monthlyCommission"
             (keydown)="this.formDataService.allowOnlyNumbers($event)"
           />
         </mat-form-field>
         <mat-form-field class="small-field">
           <mat-label>Perioada de grație (Luni)</mat-label>
-          <mat-select formControlName="gracePeriod">
+          <mat-select formControlName="creditSim_gracePeriod">
             <mat-option *ngFor="let period of months" [value]="period">
               {{ period }}
             </mat-option>
@@ -110,11 +110,11 @@
         <div class="results">
           <div class="result-item">
             <span>📅 Creditul se poate închide în:</span>
-            <div>{{ totalPeriod }} luni</div>
+            <div>{{ creditSim_totalPeriod }} luni</div>
           </div>
           <div class="result-item">
             <span>💰 Totalul de rambursat este:</span>
-            <div>{{ totalToPay }} RON</div>
+            <div>{{ creditSim_totalToPay }} RON</div>
           </div>
         </div>
       </div>
@@ -123,40 +123,52 @@
         [dataSource]="dataSource"
         *ngIf="dataSource.data.length > 0"
       >
-        <ng-container matColumnDef="luna">
+        <ng-container matColumnDef="creditSim_luna">
           <th mat-header-cell *matHeaderCellDef>Luna</th>
-          <td mat-cell *matCellDef="let element">{{ element.luna }}</td>
-        </ng-container>
-        <ng-container matColumnDef="soldInitial">
-          <th mat-header-cell *matHeaderCellDef>Sold Inițial</th>
-          <td mat-cell *matCellDef="let element">{{ element.soldInitial }}</td>
-        </ng-container>
-        <ng-container matColumnDef="anuitate">
-          <th mat-header-cell *matHeaderCellDef>Anuitate</th>
-          <td mat-cell *matCellDef="let element">{{ element.anuitate }}</td>
-        </ng-container>
-        <ng-container matColumnDef="principal">
-          <th mat-header-cell *matHeaderCellDef>Principal</th>
-          <td mat-cell *matCellDef="let element">{{ element.principal }}</td>
-        </ng-container>
-        <ng-container matColumnDef="dobanda">
-          <th mat-header-cell *matHeaderCellDef>Dobândă</th>
-          <td mat-cell *matCellDef="let element">{{ element.dobanda }}</td>
-        </ng-container>
-        <ng-container matColumnDef="comisionLunar">
-          <th mat-header-cell *matHeaderCellDef>Comision Lunar</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.comisionLunar }}
+            {{ element.creditSim_luna }}
           </td>
         </ng-container>
-        <ng-container matColumnDef="totalPlata">
-          <th mat-header-cell *matHeaderCellDef>Total Plată</th>
-          <td mat-cell *matCellDef="let element">{{ element.totalPlata }}</td>
+        <ng-container matColumnDef="creditSim_soldInitial">
+          <th mat-header-cell *matHeaderCellDef>Sold Inițial</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.creditSim_soldInitial }}
+          </td>
         </ng-container>
-        <ng-container matColumnDef="rambursareAnticipata">
+        <ng-container matColumnDef="creditSim_anuitate">
+          <th mat-header-cell *matHeaderCellDef>Anuitate</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.creditSim_anuitate }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="creditSim_principal">
+          <th mat-header-cell *matHeaderCellDef>Principal</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.creditSim_principal }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="creditSim_dobanda">
+          <th mat-header-cell *matHeaderCellDef>Dobândă</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.creditSim_dobanda }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="creditSim_comisionLunar">
+          <th mat-header-cell *matHeaderCellDef>Comision Lunar</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.creditSim_comisionLunar }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="creditSim_totalPlata">
+          <th mat-header-cell *matHeaderCellDef>Total Plată</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.creditSim_totalPlata }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="creditSim_rambursareAnticipata">
           <th mat-header-cell *matHeaderCellDef>Rambursare Anticipată</th>
           <td mat-cell *matCellDef="let element">
-            {{ element.rambursareAnticipata }}
+            {{ element.creditSim_rambursareAnticipata }}
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
