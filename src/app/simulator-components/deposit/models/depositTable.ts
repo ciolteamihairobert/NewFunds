@@ -1,9 +1,9 @@
 export interface DepositTableRow {
-    luna: number;
-    soldInitial: number;
-    sumaDepusa: number;
-    dobanda: number;
-    impozit: number;
-    comision: number;
-    soldFinal: number;
+    depositSim_luna: number;
+    depositSim_soldInitial: number;
+    depositSim_sumaDepusa: number;
+    depositSim_dobanda: number;
+    depositSim_impozit: number;
+    depositSim_comision: number;
+    depositSim_soldFinal: number;
 }

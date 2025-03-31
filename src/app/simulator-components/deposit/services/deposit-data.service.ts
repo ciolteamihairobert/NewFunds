@@ -12,7 +12,6 @@ export class DepositDataService {
   private depositProfitability = new BehaviorSubject<number>(0);
   private depositTotalTaxPaid = new BehaviorSubject<number>(0);
 
-
   currentDepositRows$ = this.depositRowsSource.asObservable();
   depositTotalSavings$ = this.depositTotalSavings.asObservable();
   depositFinalBalance$ = this.depositFinalBalance.asObservable();
