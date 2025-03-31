@@ -1,24 +1,34 @@
+:root {
+  --primary:  rgba(0, 191, 118, 0.5);
+  --secondary:  #f5c1a8;
+  --offwhite: #f5f5f5;
+  --black: black;
+  --accent1: #e9b3c9;    
+  --accent2: #e67da7;    
+}
+
 .simulator-container {
     display: flex;
     flex-direction: column;
     border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 1rem rgba(0, 191, 118, 0.5), 0 0.25rem 1rem rgba(0, 191, 118, 0.5);
+    box-shadow: 0 0.25rem 1rem var(--primary), 0 0.25rem 1rem var(--primary);
     transition: background-color 0.3s ease, transform 0.3s ease;
     padding: 1rem;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
     overflow: hidden;
     height: -webkit-fill-available;
+    width: -webkit-fill-available;
 }
 
 .simulator-content {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    padding: 0.5rem;
-    margin-top: 1rem;
-    overflow: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  overflow: auto;
 }
 
 .input-section {
@@ -28,8 +38,7 @@
     margin: 0.2rem;
     width: 35%;
     min-width: 19.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
+    margin-bottom: 4rem;
 }
 
 .output-section {
@@ -71,17 +80,24 @@
 }
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled):hover {
-    background-color: #f5f5f5;
+    background-color: var(--offwhite);
 }
 
 @media (max-width: 1430px) {
     .input-section {
         width: fit-content;
         margin-right: 0rem;
+        height: 100vh; 
     }
     .output-section {
         width: -webkit-fill-available;
+        height: 100vh; 
     }
+
+    .financial-independence-content .input-section{
+      height: fit-content;
+    }
+    
 }
 
 @media (min-width: 2450px) {
@@ -168,4 +184,279 @@
     font-size: 1rem;
     width: 8rem;
     margin-top: 0.5rem;
+}
+
+.financial-independence-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  overflow: auto;  
+  height: 100vh; 
+  box-sizing: border-box;
+}
+
+.results-investment-container{
+  display: grid;
+  gap: 10px;  
+}
+
+.results-item{
+  display: flex;               
+  justify-content: center;     
+  align-items: center;          
+  background: var(--secondary);
+  padding: 20px;
+  border-radius: 0.5rem;      
+  height: 100px;     
+}
+  
+.results-item label{
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.results-group{
+  display: flex;
+  flex-direction: column;       
+  align-items: center;   
+}
+
+.results-wrapped{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px;  
+}
+
+.table-results{
+  background: var(--primary);
+  border-radius: 0.5rem; 
+  max-width: 100%;
+}
+
+.concept-container {
+  position: relative;               
+  display: flex;                
+  flex-direction: column;                
+  background: var(--offwhite);
+  padding: 20px;
+  border-radius: 0.5rem;        
+  margin-top: 2rem;
+  color: black;
+}
+
+.concept-header {
+  position: absolute;           
+  top: 0;                         
+  left: 0;                        
+  width: 100%;                    
+  height: 60px;                  
+  text-align: center;             
+  padding: 10px 0;                
+  border-top-left-radius: 0.5rem;  
+  border-top-right-radius: 0.5rem;              
+  font-weight: bold;
+  line-height: 50px;             
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+.concept-header{
+  background: var(--primary);
+}
+
+.concept-container.concept2>.concept-header{
+  background: var(--secondary);
+}
+
+.concept-container.concept2>.concept-content>.concept-content-wrapped>.concept-content-item{
+  background: var(--secondary);
+}
+
+.concept-header h2{
+  margin: 0;
+}
+
+.concept-content {
+  padding-top: 60px;             
+  text-align: center;
+}
+
+.concept-content-wrapped{
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);  
+  gap: 10px;  
+}
+
+.concept-content-item{
+  display: flex;                
+  justify-content: center;      
+  align-items: center;          
+  background: var(--primary);  
+  padding: 6px;
+  border-radius: 0.5rem;     
+  height: 100%;
+  width: 100%;
+}
+
+.concept-content-group{
+  display: flex;
+  flex-direction: column;      
+  align-items: center;  
+  height: fit-content;
+  justify-content: center;
+}
+
+.concept-content-group h3{
+  margin: 0;
+}
+
+.organogram{
+  --grid-gap: 1rem; 
+  display: grid;
+  gap: var(--grid-gap);
+  color: black;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.organogram>div{ 
+  display: grid; 
+  justify-content: start;
+  align-items: center;
+  position: relative;
+}
+
+.organogram>div>span{
+  padding-block: 0.5rem;
+  padding-inline: 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(to right, var(--accent1), var(--accent2)); 
+}
+.organogram>.main>span{
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.organogram>.main.cc>span
+{
+  background: var(--secondary);
+}
+
+.organogram>.sub{
+  padding-inline-start: calc(var(--grid-gap) * 2);
+}
+
+.organogram>.sub::after{
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: calc(var(--grid-gap) * 2);
+  height: calc(100% + var(--grid-gap));
+  
+  inset-block-start: auto;
+  inset-inline-end: auto;
+  inset-block-end: 50%;
+  inset-inline-start: var(--grid-gap);
+  
+  --borderW: 2px;
+  --borderR: 0.5rem;
+  border-style: dashed;
+  border-color: var(--accent2);
+  
+  border-block-start-width: 0;
+  border-inline-end-width: 0;
+  border-block-end-width: var(--borderW);
+  border-inline-start-width: var(--borderW);
+ 
+  border-end-start-radius: var(--borderR);
+}
+
+@media (min-width: 30rem){
+  .organogram{
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: 'tl tc tr' 'cl cc cr' 'bl bc br';
+    text-align: center;
+  }
+  .organogram>div{
+    grid-area: var(--area);
+    justify-content: center;
+  }
+  
+  .organogram>.sub{ padding-inline-start: unset }
+  .organogram>.sub>span { 
+    padding-block: 1rem; 
+    padding-inline: 2rem;
+    border-radius: 1rem;
+  }
+       
+  .organogram>.tl {--area: tl; --i-bs: 50%; --i-is: 50%; --bw-be: 1; --bw-is: 1; --br-es: 1}
+  .organogram>.tc {--area: tc; --i-bs: 50%; --i-is: 50%; --bw-is: 1}
+  .organogram>.tr {--area: tr; --i-bs: 50%; --i-ie: 50%; --bw-be: 1; --bw-ie: 1; --br-ee: 1}
+  .organogram>.cl {--area: cl; --i-bs: 50%; --i-is: 50%; --bw-bs: 1}
+  .organogram>.cc {--area: cc}
+  .organogram>.cr {--area: cr; --i-bs: 50%; --i-ie: 50%; --bw-bs: 1}
+  .organogram>.bl {--area: bl; --i-be: 50%; --i-is: 50%; --bw-bs: 1; --bw-is: 1; --br-ss: 1}
+  .organogram>.bc {--area: bc; --i-be: 50%; --i-is: 50%; --bw-is: 1}
+  .organogram>.br {--area: br; --i-be: 50%; --i-ie: 50%; --bw-bs: 1; --bw-ie: 1; --br-se: 1}
+  
+  .organogram>.sub::after{
+    width: 100%;
+    height: calc(50% + var(--grid-gap) * 1.5);
+   
+    inset-block-start: var(--i-bs, auto);
+    inset-inline-end: var(--i-ie, auto);
+    inset-block-end: bar(--i-be, auto);
+    inset-inline-start: var(--i-is, auto);
+    
+    border-block-start-width: calc(var(--borderW) * var(--bw-bs, 0));
+    border-inline-end-width: calc(var(--borderW) * var(--bw-ie, 0));
+    border-block-end-width: calc(var(--borderW) * var(--bw-be, 0));
+    border-inline-start-width: calc(var(--borderW) * var(--bw-is, 0));
+    
+    border-start-start-radius: calc(var(--borderR) * var(--br-ss, 0));
+    border-start-end-radius: calc(var(--borderR) * var(--br-se, 0));
+    border-end-end-radius: calc(var(--borderR) * var(--br-ee, 0));
+    border-end-start-radius: calc(var(--borderR) * var(--br-es, 0));
+  }
+}
+
+.input-financial {
+  width: 3rem;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 15px;
+  border: 1px solid #ccc;
+}
+
+.input-financial + span{
+  margin-left: 10px;
+}
+
+.investment-table-results table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 0.1rem 0.8rem var(--primary), 0 0.1rem 0.8rem var(--primary);
+  border-collapse: collapse; 
+  width: 100%;
+}
+
+.investment-table-results th,
+.investment-table-results td {
+  padding: 16px;
+  text-align: center;
+  vertical-align: middle;
+  border-right: 1px solid #e0e0e0;  
+}
+
+.investment-table-results th{
+  background-color: var(--primary);  
+}
+
+.investment-table-results tr:nth-child(even) {
+  background-color: var(--accent1);  
 }

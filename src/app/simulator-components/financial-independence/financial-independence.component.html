@@ -1,0 +1,111 @@
+<div class="simulator-container" style="max-width: 96.3vw">
+    <app-header
+      title="PLAN PENTRU SIGURANȚA FINANCIARA"
+      formName="Independenta"
+    >
+    </app-header>
+    <div class="financial-independence-content">
+      <div class="organogram">
+        <div class="main cc"><span>OBIECTIVE</span></div>
+        <div class="sub  tl"><span>Stabilitate financiară permanentă</span></div>
+        <div class="sub  tc"><span>Flexibilitate și profit</span></div>
+        <div class="sub  tr"><span>Retrageri parțiale din sold</span></div>
+        <div class="sub  cl"><span>Venit pasiv</span></div>
+        <div class="sub  cr"><span>O viață mai bună</span></div>
+        <div class="sub  bl"><span>Posibilitatea de a transmite sumele moștenite</span></div>
+        <div class="sub  br"><span>Generarea de venituri pasive</span></div>
+      </div>
+      <div class="results-wrapped">
+        <div class="results-investment-container">
+          <div class="result-item">
+            <span>💰 Suma economisita initial:</span>
+            <div>X Euro</div>
+          </div>
+          <div class="result-item">
+            <span>💰 Suma economisita lunar:</span>
+            <div>X Euro</div>
+          </div>
+          <div class="result-item">
+            <span>⏳ Durata economisirii:</span>
+            <div>X luni</div>
+          </div>
+          <div class="result-item">
+            <span>💵 Depuneri suplimentare:</span>
+            <div>X Euro</div>
+          </div>
+          <div class="result-item">
+            <span>📈 Indexare anuală:</span>
+            <div>X %</div>
+          </div>
+          <div class="result-item">
+            <span>⏳ Durata de valabilitate:</span>
+            <div>X luni</div>
+          </div>
+          <div class="result-item">
+            <span>💸 Veti putea primi venituri pasive pe o perioada de:</span>
+            <div>
+              <input type="number" [(ngModel)]="income" class="input-financial" />
+              <span>%</span>
+            </div>
+          </div>
+          <div class="result-item">
+            <span>📈 La sumele de mai sus, randamentul estimat al rentei este de:</span>
+            <div>
+              <input type="number" [(ngModel)]="rentalYield" class="input-financial" />
+              <span>luni</span>
+            </div>
+          </div>
+        </div>
+        <div class="investment-table-results">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+            <ng-container matColumnDef="age">
+              <th mat-header-cell *matHeaderCellDef>Vârsta copilului</th>
+              <td mat-cell *matCellDef="let element">{{ element.age }}</td>
+            </ng-container>
+            <ng-container matColumnDef="balance">
+              <th mat-header-cell *matHeaderCellDef>Sold</th>
+              <td mat-cell *matCellDef="let element">{{ element.balance }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </div>
+      <div class="results-wrapped">
+        <div class="concept-container">
+          <div class="concept-header">
+            <h2>{{ concept1.title }}</h2>
+          </div>
+          <div class="concept-content">
+            <h3>{{ concept1.description }}</h3>
+            <div class="concept-content-wrapped">
+              <div *ngFor="let item of concept1.contentItems" class="concept-content-item">
+                <div class="concept-content-group">
+                  <br />
+                  <h3>{{ item.text }}</h3>
+                  <h2>{{ item.value }}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="concept-container concept2">
+          <div class="concept-header">
+            <h2>{{ concept2.title }}</h2>
+          </div>
+          <div class="concept-content">
+            <h3>{{ concept2.description }}</h3>
+            <div class="concept-content-wrapped">
+              <div *ngFor="let item of concept2.contentItems" class="concept-content-item">
+                <div class="concept-content-group">
+                  <br />
+                  <h3>{{ item.text }}</h3>
+                  <h2>{{ item.value }}</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>  
+ </div>
